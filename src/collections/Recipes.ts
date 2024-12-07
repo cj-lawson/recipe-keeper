@@ -1,6 +1,4 @@
 import type { CollectionConfig } from 'payload'
-import { Categories } from './Categories'
-
 
 export const Recipes: CollectionConfig = {
     slug: 'recipes',
@@ -14,7 +12,7 @@ export const Recipes: CollectionConfig = {
         {
             name: 'createdBy',
             type: 'relationship',
-            relationTo: 'users',
+            relationTo: 'customers',
             hasMany: false,
             admin: {
                 position: 'sidebar'
@@ -25,7 +23,6 @@ export const Recipes: CollectionConfig = {
             type: 'upload',
             relationTo: 'media',
         },
-        
         {
             name: 'title',
             type: 'text',
@@ -122,5 +119,5 @@ export const Recipes: CollectionConfig = {
             name: 'url',
             type: 'text',
         },
-    ]
+    ],
 }

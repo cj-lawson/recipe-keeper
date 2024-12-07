@@ -14,6 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     documents: Document;
+    customers: Customer;
     categories: Category;
     recipes: Recipe;
     'payload-locked-documents': PayloadLockedDocument;
@@ -25,6 +26,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     recipes: RecipesSelect<false> | RecipesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -112,11 +114,26 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "customers".
  */
-export interface Category {
+export interface Customer {
   id: number;
-  name: string;
+  databaseUserId: string;
+  email: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  savedRecipes?: (number | Recipe)[] | null;
+  createdRecipes?: (number | Recipe)[] | null;
+  preferences?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  profilePhoto?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -127,11 +144,11 @@ export interface Category {
 export interface Recipe {
   id: number;
   isPublic?: boolean | null;
-  createdBy?: (number | null) | User;
+  createdBy?: (number | null) | Customer;
   mainImage?: (number | null) | Media;
   title: string;
   description?: string | null;
-  coreCategories?: (number | Category)[] | null;
+  coreCategories?: (number | null) | Category;
   customCategories?:
     | {
         category?: string | null;
@@ -164,6 +181,16 @@ export interface Recipe {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -180,6 +207,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'documents';
         value: number | Document;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
       } | null)
     | ({
         relationTo: 'categories';
@@ -271,6 +302,22 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface DocumentsSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  databaseUserId?: T;
+  email?: T;
+  firstName?: T;
+  lastName?: T;
+  savedRecipes?: T;
+  createdRecipes?: T;
+  preferences?: T;
+  profilePhoto?: T;
   updatedAt?: T;
   createdAt?: T;
 }
