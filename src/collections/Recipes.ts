@@ -12,7 +12,7 @@ export const Recipes: CollectionConfig = {
         {
             name: 'createdBy',
             type: 'relationship',
-            relationTo: 'customers',
+            relationTo: 'profiles',
             hasMany: false,
             admin: {
                 position: 'sidebar'

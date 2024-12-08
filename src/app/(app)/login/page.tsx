@@ -1,4 +1,4 @@
-// import { login, signup } from "./actions";
+import { login, signup } from "./actions";
 
 export default function Login() {
   return (
@@ -7,8 +7,12 @@ export default function Login() {
       <input id="email" name="email" type="email" required />
       <label htmlFor="password">Password:</label>
       <input id="password" name="password" type="password" required />
-      {/* <button formAction={login}>Log in</button>
-      <button formAction={signup}>Sign up</button> */}
+      <button className="bg-blue-800" formAction={login}>
+        Log in
+      </button>
+      <button className="bg-red-800" formAction={signup}>
+        Sign up
+      </button>
     </form>
   );
 }

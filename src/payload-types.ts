@@ -14,7 +14,7 @@ export interface Config {
     users: User;
     media: Media;
     documents: Document;
-    customers: Customer;
+    profiles: Profile;
     categories: Category;
     recipes: Recipe;
     'payload-locked-documents': PayloadLockedDocument;
@@ -26,7 +26,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
-    customers: CustomersSelect<false> | CustomersSelect<true>;
+    profiles: ProfilesSelect<false> | ProfilesSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     recipes: RecipesSelect<false> | RecipesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -34,7 +34,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   globals: {};
   globalsSelect: {};
@@ -70,7 +70,7 @@ export interface UserAuthOperations {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -87,7 +87,7 @@ export interface User {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
   prefix?: string | null;
   updatedAt: string;
@@ -107,23 +107,24 @@ export interface Media {
  * via the `definition` "documents".
  */
 export interface Document {
-  id: number;
+  id: string;
   name: string;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customers".
+ * via the `definition` "profiles".
  */
-export interface Customer {
-  id: number;
-  databaseUserId: string;
+export interface Profile {
+  id: string;
+  databaseUserId: number;
   email: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  savedRecipes?: (number | Recipe)[] | null;
-  createdRecipes?: (number | Recipe)[] | null;
+  first_name?: string | null;
+  last_name?: string | null;
+  bio?: string | null;
+  savedRecipes?: (string | Recipe)[] | null;
+  createdRecipes?: (string | Recipe)[] | null;
   preferences?:
     | {
         [k: string]: unknown;
@@ -133,7 +134,7 @@ export interface Customer {
     | number
     | boolean
     | null;
-  profilePhoto?: (number | null) | Media;
+  profilePhoto?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -142,13 +143,13 @@ export interface Customer {
  * via the `definition` "recipes".
  */
 export interface Recipe {
-  id: number;
+  id: string;
   isPublic?: boolean | null;
-  createdBy?: (number | null) | Customer;
-  mainImage?: (number | null) | Media;
+  createdBy?: (string | null) | Profile;
+  mainImage?: (string | null) | Media;
   title: string;
   description?: string | null;
-  coreCategories?: (number | null) | Category;
+  coreCategories?: (string | null) | Category;
   customCategories?:
     | {
         category?: string | null;
@@ -170,11 +171,11 @@ export interface Recipe {
   directions: {
     stepNumber?: number | null;
     instruction: string;
-    stepImage?: (number | null) | Media;
+    stepImage?: (string | null) | Media;
     id?: string | null;
   }[];
   source: string;
-  sourcePhoto?: (number | null) | Media;
+  sourcePhoto?: (string | null) | Media;
   url?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -184,7 +185,7 @@ export interface Recipe {
  * via the `definition` "categories".
  */
 export interface Category {
-  id: number;
+  id: string;
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -194,36 +195,36 @@ export interface Category {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'documents';
-        value: number | Document;
+        value: string | Document;
       } | null)
     | ({
-        relationTo: 'customers';
-        value: number | Customer;
+        relationTo: 'profiles';
+        value: string | Profile;
       } | null)
     | ({
         relationTo: 'categories';
-        value: number | Category;
+        value: string | Category;
       } | null)
     | ({
         relationTo: 'recipes';
-        value: number | Recipe;
+        value: string | Recipe;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -233,10 +234,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -256,7 +257,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -307,13 +308,14 @@ export interface DocumentsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "customers_select".
+ * via the `definition` "profiles_select".
  */
-export interface CustomersSelect<T extends boolean = true> {
+export interface ProfilesSelect<T extends boolean = true> {
   databaseUserId?: T;
   email?: T;
-  firstName?: T;
-  lastName?: T;
+  first_name?: T;
+  last_name?: T;
+  bio?: T;
   savedRecipes?: T;
   createdRecipes?: T;
   preferences?: T;

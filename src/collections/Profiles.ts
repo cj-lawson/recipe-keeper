@@ -1,12 +1,12 @@
 import { CollectionConfig } from 'payload';
 
-export const Customers: CollectionConfig = {
-    slug: 'customers',
+export const Profiles: CollectionConfig = {
+    slug: 'profiles',
     auth: false, // Supabase handles auth
     fields: [
         {
             name: 'databaseUserId',
-            type: 'text',
+            type: 'number',
             unique: true,
             required: true,
         },
@@ -16,8 +16,16 @@ export const Customers: CollectionConfig = {
             required: true,
         },
         {
-            name: 'name',
+            name: 'first_name',
             type: 'text',
+        }, 
+        {
+            name: 'last_name',
+            type: 'text',
+        },
+        {
+            name: 'bio',
+            type: 'text'
         }, 
         {
             name: 'savedRecipes',

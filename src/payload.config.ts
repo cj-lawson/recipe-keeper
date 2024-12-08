@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
 import { Users } from './collections/Users'
-import {Customers} from './collections/Customers'
+import {Profiles} from './collections/Profiles'
 import { Media } from './collections/Media'
 import { Categories } from './collections/Categories'
 import {Recipes} from './collections/Recipes'
@@ -26,13 +26,14 @@ export default buildConfig({
     },
   },
   
-  collections: [Users, Media, Documents, Customers, Categories, Recipes],
+  collections: [Users, Media, Documents, Profiles, Categories, Recipes],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    idType: "uuid",
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
