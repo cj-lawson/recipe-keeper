@@ -6,7 +6,7 @@ export const Recipes: CollectionConfig = {
         {
             name: 'isPublic',
             type: 'checkbox',
-            defaultValue: true,
+            defaultValue: false,
             label: 'Public Recipe'
         },
         {

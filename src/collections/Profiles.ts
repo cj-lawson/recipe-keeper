@@ -5,15 +5,9 @@ export const Profiles: CollectionConfig = {
     auth: false, // Supabase handles auth
     fields: [
         {
-            name: 'databaseUserId',
-            type: 'number',
-            unique: true,
-            required: true,
-        },
-        {
             name: 'email',
             type: 'email',
-            required: true,
+            required: false,
         },
         {
             name: 'first_name',

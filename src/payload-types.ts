@@ -118,8 +118,7 @@ export interface Document {
  */
 export interface Profile {
   id: string;
-  databaseUserId: number;
-  email: string;
+  email?: string | null;
   first_name?: string | null;
   last_name?: string | null;
   bio?: string | null;
@@ -311,7 +310,6 @@ export interface DocumentsSelect<T extends boolean = true> {
  * via the `definition` "profiles_select".
  */
 export interface ProfilesSelect<T extends boolean = true> {
-  databaseUserId?: T;
   email?: T;
   first_name?: T;
   last_name?: T;
