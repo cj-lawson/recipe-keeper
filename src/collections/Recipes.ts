@@ -1,4 +1,13 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, CollectionBeforeOperationHook } from 'payload'
+import {slugify} from '../../utils/slugify'
+
+
+
+const generateSlug: CollectionBeforeOperationHook = ({ data }: any) => {
+    if(data.title) {
+        data.slug = slugify(data.title)
+    }
+};
 
 export const Recipes: CollectionConfig = {
     slug: 'recipes',
@@ -8,6 +17,13 @@ export const Recipes: CollectionConfig = {
             type: 'checkbox',
             defaultValue: false,
             label: 'Public Recipe'
+        },
+        {
+            name: "slug",
+            type: "text",
+            admin: {
+                readOnly: true,
+            }
         },
         {
             name: 'createdBy',
@@ -120,4 +136,7 @@ export const Recipes: CollectionConfig = {
             type: 'text',
         },
     ],
+    hooks: {
+        beforeChange: [generateSlug]
+    }
 }

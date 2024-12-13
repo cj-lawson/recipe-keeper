@@ -15,6 +15,7 @@ import {Recipes} from './collections/Recipes'
 import {Documents} from './collections/Documents'
 import { s3Storage } from '@payloadcms/storage-s3'
 
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -59,6 +60,7 @@ export default buildConfig({
       },
     }),
   ],
+ 
 })
 
 

@@ -144,6 +144,7 @@ export interface Profile {
 export interface Recipe {
   id: string;
   isPublic?: boolean | null;
+  slug?: string | null;
   createdBy?: (string | null) | Profile;
   mainImage?: (string | null) | Media;
   title: string;
@@ -336,6 +337,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface RecipesSelect<T extends boolean = true> {
   isPublic?: T;
+  slug?: T;
   createdBy?: T;
   mainImage?: T;
   title?: T;
