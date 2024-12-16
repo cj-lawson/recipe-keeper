@@ -11,7 +11,7 @@ export default async function Navbar() {
 
   return (
     <header className="px-3 py-2 z-10 sticky top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-[family-name:var(--font-geist-sans)]">
-      <div className="container flex h-14 max-w-screen-xl items-center ml-auto mr-auto">
+      <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <a className="mr-6 flex items-center space-x-2" href="/">
             <span className="font-bold text-[#31572c] text-xl">BiteClub</span>

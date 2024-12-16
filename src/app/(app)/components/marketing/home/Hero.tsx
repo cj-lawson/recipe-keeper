@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <div className="relative w-full overflow-clip">
+    <div className="relative w-full overflow-clip pt-4">
       <div className="mx-auto max-w-screen-xl">
         <div className="relative sm:overflow-hidden sm:rounded-2xl">
           <div className="absolute inset-0">

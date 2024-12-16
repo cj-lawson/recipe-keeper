@@ -49,6 +49,81 @@ export const Recipes: CollectionConfig = {
             type: 'textarea',
         },
         {
+            name: 'cookTime',
+            type: 'number',
+            label: 'Cook time (minutes)',
+            admin: {
+                position: 'sidebar',
+            }
+        },
+        {
+            name: 'datePublished',
+            type: 'date',
+            label: 'Date Published',
+            admin: {
+              position: 'sidebar'
+            }
+          },
+          {
+            name: 'servings',
+            type: 'number',
+            label: 'Servings',
+            admin: {
+              position: 'sidebar',
+              description: 'Number of servings this recipe makes.',
+            }
+          },
+          {
+            name: 'cuisine',
+            type: 'select',
+            label: 'Cuisine',
+            options: [
+              {
+                label: 'Italian',
+                value: 'italian',
+              },
+              {
+                label: 'Mexican',
+                value: 'mexican',
+              },
+              {
+                label: 'Chinese',
+                value: 'chinese',
+              },
+              {
+                label: 'Japanese',
+                value: 'japanese',
+              },
+              {
+                label: 'Indian',
+                value: 'indian',
+              },
+              {
+                label: 'Asian',
+                value: 'Asian',
+              },
+              { 
+                label: 'Other', 
+                value: 'other' 
+            }, // Add an "Other" option
+            ],
+            admin: {
+              position: 'sidebar',
+            }
+          },
+          {
+            name: 'customCuisine',
+            type: 'text',
+            label: 'Custom Cuisine',
+            admin: {
+              // Only show this field if "other" is selected in the cuisine field
+              condition: (data, siblingData) => {
+                return siblingData?.cuisine === 'other';
+              },
+              position: 'sidebar'
+            }
+          },
+        {
             name: 'coreCategories',
             type: 'relationship',
             relationTo: 'categories',
@@ -83,12 +158,53 @@ export const Recipes: CollectionConfig = {
         {
             name: 'ingredients',
             type: 'array',
+            label: 'Ingredients',
             fields: [
                 {
+                    name: 'amount',
+                    type: 'number',
+                    label: 'Amount',
+                    // required: true,
+                    admin: {
+                      placeholder: 'Enter quantity (e.g., 1, 1.5)',
+                    },
+                  },
+                  {
+                    name: 'unit',
+                    type: 'select',
+                    label: 'Unit',
+                    // required: true,
+                    options: [
+                      { label: 'Cups', value: 'cups' },
+                      { label: 'Tablespoons', value: 'tbsp' },
+                      { label: 'Teaspoons', value: 'tsp' },
+                      { label: 'Grams', value: 'grams' },
+                      { label: 'Ounces', value: 'oz' },
+                      { label: 'Pounds', value: 'lb' },
+                      { label: 'Milliliters', value: 'ml' },
+                      { label: 'Liters', value: 'l' },
+                      { label: 'Pieces', value: 'pieces' },
+                      { label: 'Custom', value: 'custom' }, // Fallback for custom units
+                    ],
+                  },
+                  {
+                    name: 'customUnit',
+                    type: 'text',
+                    label: 'Custom Unit',
+                    admin: {
+                      condition: (data, siblingData) => siblingData.unit === 'custom',
+                      placeholder: 'Enter a custom unit (e.g., "pinch")',
+                    },
+                  },
+                  {
                     name: 'ingredient',
                     type: 'text',
-                    required: true,
-                }
+                    label: 'Ingredient',
+                    // required: true,
+                    admin: {
+                      placeholder: 'Enter ingredient name (e.g., "Flour")',
+                    },
+                  },
             ]
         },
         {

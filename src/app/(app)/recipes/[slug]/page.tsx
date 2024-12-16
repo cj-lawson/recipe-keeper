@@ -3,22 +3,14 @@ import { getPayloadHMR } from "@payloadcms/next/utilities";
 import { notFound } from "next/navigation";
 import type { Recipe } from "../../../../payload-types";
 
-interface RecipePageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function Recipe({ params }: RecipePageProps) {
+export default async function Recipe({ params }: { params: { slug: string } }) {
   const { slug } = params;
   const payload = await getPayloadHMR({ config });
 
   const recipes = await payload.find({
     collection: "recipes",
     where: {
-      slug: {
-        equals: slug,
-      },
+      slug: { equals: slug },
     },
     depth: 2,
   });
@@ -29,48 +21,82 @@ export default async function Recipe({ params }: RecipePageProps) {
     notFound();
   }
 
+  console.log(recipe);
+
   return (
-    <section className="max-w-screen-xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">{recipe.title}</h1>
+    <>
+      <div className="min-h-screen min-w-screen-lg px-3 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
+        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+          <section className="max-w-screen-lg w-full flex flex-col pt-4 gap-12 ml-auto mr-auto md:flex-row md:justify-between">
+            <div className="basis-1/2 space-y-8 my-auto">
+              <h1 className="text-2xl font-bold">{recipe.title}</h1>
+              <p>{recipe.description}</p>
+              <ul className="list-none mb-6 flex gap-4">
+                {recipe.tags?.map((tag) => (
+                  <li
+                    key={tag.id}
+                    className="bg-[#f1f6d1] px-3 py-1 rounded-full text-sm text-[#7f9c30] font-semibold"
+                  >
+                    {tag.tag}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-2 mb-8">
+                {recipe.createdBy &&
+                  typeof recipe.createdBy !== "string" &&
+                  recipe.createdBy.profilePhoto &&
+                  typeof recipe.createdBy.profilePhoto !== "string" &&
+                  recipe.createdBy.profilePhoto.url && (
+                    <img
+                      src={recipe.createdBy.profilePhoto.url}
+                      alt={recipe.createdBy.first_name ?? "Profile Photo"}
+                      className="rounded-full w-8 h-8"
+                    />
+                  )}
 
-      {/* mainImage type guard: Check it's not a string and has a url */}
-      {recipe.mainImage &&
-        typeof recipe.mainImage !== "string" &&
-        recipe.mainImage.url && (
-          <img src={recipe.mainImage.url} alt={recipe.title} className="mb-4" />
-        )}
+                <p className="text-sm text-gray-500">{recipe.source}</p>
+              </div>
+            </div>
+            <div className="basis-1/2">
+              {recipe.mainImage &&
+                typeof recipe.mainImage !== "string" &&
+                recipe.mainImage.url && (
+                  <img
+                    src={recipe.mainImage.url}
+                    alt={recipe.title}
+                    className="mb-4 rounded-md"
+                  />
+                )}
+            </div>
+          </section>
+          <section className="max-w-screen-lg mx-auto">
+            <div className="md:flex md:flex-row md:justify-between">
+              <div className="md:basis-3/5 mb-12">
+                <h2 className="text-xl font-semibold mb-2">Directions</h2>
+                <ol className="space-y-6">
+                  {recipe.directions.map((step, i) => (
+                    <li
+                      key={i}
+                      className="mb-2 bg-white rounded-md py-8 px-6 border border-[#DDDDDD]"
+                    >
+                      {step.instruction}
+                    </li>
+                  ))}
+                </ol>
+              </div>
 
-      <p className="mb-4">{recipe.description}</p>
-      <div className="flex items-center gap-2 mb-8">
-        {/* createdBy type guard: Check that it's not a string */}
-        {recipe.createdBy &&
-          typeof recipe.createdBy !== "string" &&
-          recipe.createdBy.profilePhoto &&
-          typeof recipe.createdBy.profilePhoto !== "string" &&
-          recipe.createdBy.profilePhoto.url && (
-            <img
-              src={recipe.createdBy.profilePhoto.url}
-              alt={recipe.createdBy.first_name ?? "Profile Photo"}
-              className="rounded-full w-8 h-8"
-            />
-          )}
-
-        <p className="text-sm text-gray-500">{recipe.source}</p>
+              <div className="">
+                <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
+                <ul className="list-none mb-6">
+                  {recipe.ingredients?.map((ing, i) => (
+                    <li key={i}>{ing.ingredient}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section>
+        </main>
       </div>
-
-      <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-      <ul className="list-disc ml-5 mb-6">
-        {recipe.ingredients?.map((ing, i) => <li key={i}>{ing.ingredient}</li>)}
-      </ul>
-
-      <h2 className="text-xl font-semibold mb-2">Directions</h2>
-      <ol className="list-decimal ml-5">
-        {recipe.directions.map((step, i) => (
-          <li key={i} className="mb-2">
-            {step.instruction}
-          </li>
-        ))}
-      </ol>
-    </section>
+    </>
   );
 }

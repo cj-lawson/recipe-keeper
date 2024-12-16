@@ -149,6 +149,11 @@ export interface Recipe {
   mainImage?: (string | null) | Media;
   title: string;
   description?: string | null;
+  cookTime?: number | null;
+  datePublished?: string | null;
+  servings?: number | null;
+  cuisine?: ('italian' | 'mexican' | 'chinese' | 'japanese' | 'indian' | 'Asian' | 'other') | null;
+  customCuisine?: string | null;
   coreCategories?: (string | null) | Category;
   customCategories?:
     | {
@@ -164,7 +169,10 @@ export interface Recipe {
     | null;
   ingredients?:
     | {
-        ingredient: string;
+        amount?: number | null;
+        unit?: ('cups' | 'tbsp' | 'tsp' | 'grams' | 'oz' | 'lb' | 'ml' | 'l' | 'pieces' | 'custom') | null;
+        customUnit?: string | null;
+        ingredient?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -342,6 +350,11 @@ export interface RecipesSelect<T extends boolean = true> {
   mainImage?: T;
   title?: T;
   description?: T;
+  cookTime?: T;
+  datePublished?: T;
+  servings?: T;
+  cuisine?: T;
+  customCuisine?: T;
   coreCategories?: T;
   customCategories?:
     | T
@@ -358,6 +371,9 @@ export interface RecipesSelect<T extends boolean = true> {
   ingredients?:
     | T
     | {
+        amount?: T;
+        unit?: T;
+        customUnit?: T;
         ingredient?: T;
         id?: T;
       };
