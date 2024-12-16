@@ -26,7 +26,7 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
   return (
     <>
       <div className="min-h-screen min-w-screen-lg px-3 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <main className="flex flex-col gap-16 row-start-2 items-center sm:items-start">
           <section className="max-w-screen-lg w-full flex flex-col pt-4 gap-12 ml-auto mr-auto md:flex-row md:justify-between">
             <div className="basis-1/2 space-y-8 my-auto">
               <h1 className="text-2xl font-bold">{recipe.title}</h1>
@@ -41,6 +41,11 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
                   </li>
                 ))}
               </ul>
+              <div className="flex gap-16">
+                <div className="flex gap-2">{recipe.cookTime} minutes</div>
+                <div className="flex gap-2">{recipe.servings} servings</div>
+              </div>
+
               <div className="flex items-center gap-2 mb-8">
                 {recipe.createdBy &&
                   typeof recipe.createdBy !== "string" &&
@@ -87,9 +92,15 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
 
               <div className="">
                 <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-                <ul className="list-none mb-6">
+                <ul className="list-none mb-6 space-y-8">
                   {recipe.ingredients?.map((ing, i) => (
-                    <li key={i}>{ing.ingredient}</li>
+                    <li key={i} className="flex justify-between">
+                      <div className="basis-1/2">{ing.ingredient}</div>
+                      <div className="text-sm flex gap-1">
+                        <p>{ing.amount}</p>
+                        <p>{ing.unit}</p>
+                      </div>
+                    </li>
                   ))}
                 </ul>
               </div>
