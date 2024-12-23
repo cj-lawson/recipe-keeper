@@ -1,4 +1,4 @@
-import { login, signup } from "./actions";
+import { signup, login } from "./actions";
 
 export default function Login() {
   return (
@@ -62,10 +62,10 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              formAction={signup}
+              formAction={login}
               className="flex w-full justify-center rounded-md bg-[#132a13] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#31572c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              Login
             </button>
           </div>
         </form>

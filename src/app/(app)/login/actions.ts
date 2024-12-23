@@ -15,14 +15,22 @@ export async function login(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.signInWithPassword(data)
+  const { error, data: session } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
     redirect('/error')
   }
+  const userId = session.user.id
+
+  // if (session?.user) {
+  //   const userId = session.user.id
+  //   redirect(`/profile/${userId}`)
+  // } else {
+  //   redirect('/error')
+  // }
 
   revalidatePath('/', 'layout')
-  redirect('/')
+  redirect(`/profile/${userId}`)
 }
 
 
@@ -35,14 +43,21 @@ export async function signup(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.signUp(data)
+  const { error, data: session } = await supabase.auth.signUp(data)
 
   if (error) {
     redirect('/error')
   }
+
+  if (session?.user) {
+    const userId = session.user.id
+    redirect(`/profile/${userId}`)
+  } else {
+    redirect('/error')
+  }
   
-  revalidatePath('/', 'layout')
-  redirect('/')
+  // revalidatePath('/', 'layout')
+  // redirect('/')
 }
 
 

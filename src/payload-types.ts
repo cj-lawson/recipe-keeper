@@ -121,6 +121,7 @@ export interface Profile {
   email?: string | null;
   first_name?: string | null;
   last_name?: string | null;
+  username?: string | null;
   bio?: string | null;
   savedRecipes?: (string | Recipe)[] | null;
   createdRecipes?: (string | Recipe)[] | null;
@@ -145,7 +146,7 @@ export interface Recipe {
   id: string;
   isPublic?: boolean | null;
   slug?: string | null;
-  createdBy?: (string | null) | Profile;
+  createdBy: string | Profile;
   mainImage?: (string | null) | Media;
   title: string;
   description?: string | null;
@@ -154,7 +155,6 @@ export interface Recipe {
   servings?: number | null;
   cuisine?: ('italian' | 'mexican' | 'chinese' | 'japanese' | 'indian' | 'Asian' | 'other') | null;
   customCuisine?: string | null;
-  coreCategories?: (string | null) | Category;
   customCategories?:
     | {
         category?: string | null;
@@ -182,9 +182,6 @@ export interface Recipe {
     stepImage?: (string | null) | Media;
     id?: string | null;
   }[];
-  source: string;
-  sourcePhoto?: (string | null) | Media;
-  url?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -322,6 +319,7 @@ export interface ProfilesSelect<T extends boolean = true> {
   email?: T;
   first_name?: T;
   last_name?: T;
+  username?: T;
   bio?: T;
   savedRecipes?: T;
   createdRecipes?: T;
@@ -355,7 +353,6 @@ export interface RecipesSelect<T extends boolean = true> {
   servings?: T;
   cuisine?: T;
   customCuisine?: T;
-  coreCategories?: T;
   customCategories?:
     | T
     | {
@@ -385,9 +382,6 @@ export interface RecipesSelect<T extends boolean = true> {
         stepImage?: T;
         id?: T;
       };
-  source?: T;
-  sourcePhoto?: T;
-  url?: T;
   updatedAt?: T;
   createdAt?: T;
 }

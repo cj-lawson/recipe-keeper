@@ -29,6 +29,7 @@ export const Recipes: CollectionConfig = {
             name: 'createdBy',
             type: 'relationship',
             relationTo: 'profiles',
+            required: true,
             hasMany: false,
             admin: {
                 position: 'sidebar'
@@ -123,14 +124,6 @@ export const Recipes: CollectionConfig = {
               position: 'sidebar'
             }
           },
-        {
-            name: 'coreCategories',
-            type: 'relationship',
-            relationTo: 'categories',
-            admin: {
-                position: 'sidebar',
-            }
-        },
         {
             name: 'customCategories',
             type: 'array',
@@ -237,20 +230,8 @@ export const Recipes: CollectionConfig = {
                 initCollapsed: true, // Collapses the list of steps in the CMS for cleaner UI
             }
         },
-        {
-            name: 'source',
-            type: 'text',
-            required: true,
-        },
-        {
-            name: 'sourcePhoto',
-            type: 'upload',
-            relationTo: 'media'
-        },
-        {
-            name: 'url',
-            type: 'text',
-        },
+        
+       
     ],
     hooks: {
         beforeChange: [generateSlug]

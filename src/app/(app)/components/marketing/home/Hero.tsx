@@ -28,17 +28,17 @@ export default function Hero() {
           </div>
           <div className="relative px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
             <h1 className="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              <span className="block">Meal planning</span>
-              <span className="block">made easy</span>
+              <span className="block">Your digital</span>
+              <span className="block">recipe book</span>
             </h1>
             <p className="mx-auto mt-6 max-w-lg text-center text-xl sm:max-w-3xl text-zinc-600">
-              Recipe inspiration and meal planning, all in one place
+              Discover, create, and share your recipes.
             </p>
             <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
               <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
                 <a
                   href="#"
-                  className="flex items-center justify-center rounded-md border border-transparent bg-[#132a13] hover:bg-[#31572c] px-4 py-3 text-base font-medium text-white hover:bg-indigo-50 sm:px-8"
+                  className="flex items-center justify-center rounded-md border border-transparent bg-[#222222] px-4 py-3 text-base font-medium text-white sm:px-8"
                 >
                   Get started
                 </a>

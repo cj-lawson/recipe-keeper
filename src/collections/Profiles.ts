@@ -18,6 +18,10 @@ export const Profiles: CollectionConfig = {
             type: 'text',
         },
         {
+            name: 'username',
+            type: 'text'
+        },
+        {
             name: 'bio',
             type: 'text'
         }, 

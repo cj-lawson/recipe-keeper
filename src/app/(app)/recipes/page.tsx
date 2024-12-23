@@ -63,9 +63,6 @@ export default async function Recipes() {
                         className="rounded-full w-6 h-6"
                       />
                     )}
-                  <p className="pointer-events-none block text-sm font-medium text-gray-500">
-                    {doc.source}
-                  </p>
                 </div>
               </Link>
             </li>

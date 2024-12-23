@@ -30,7 +30,7 @@ export default async function Navbar() {
               <button>Sign Out</button>
             </form>
           ) : (
-            <button className="bg-[#132a13] text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-[#31572c]">
+            <button className="bg-[#222222] text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-[#31572c]">
               <Link href="/login">Get Started</Link>
             </button>
           )}
