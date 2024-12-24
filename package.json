@@ -10,6 +10,7 @@
     "generate:types": "npx payload generate:types"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@payloadcms/db-postgres": "^3.2.2",
     "@payloadcms/next": "^3.2.2",

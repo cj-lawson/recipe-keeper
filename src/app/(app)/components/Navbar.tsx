@@ -1,6 +1,9 @@
 import { signOut } from "../login/actions";
 import { createClient } from "../../../../utils/supabase/server";
 import Link from "next/link";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 export default async function Navbar() {
   const supabase = await createClient();
@@ -25,10 +28,75 @@ export default async function Navbar() {
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">
           {user !== null ? (
-            <form action={signOut} className="flex items-center gap-2">
-              <p>{user.email}</p>
-              <button>Sign Out</button>
-            </form>
+            <Menu as="div" className="relative inline-block text-left">
+              <div>
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                  Account
+                  <ChevronDownIcon
+                    aria-hidden="true"
+                    className="-mr-1 size-5 text-gray-400"
+                  />
+                </MenuButton>
+              </div>
+
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              >
+                <div className="px-4 py-3">
+                  <p className="text-sm">Signed in as</p>
+                  <p className="truncate text-sm font-medium text-gray-900">
+                    {user.email}
+                  </p>
+                </div>
+                <div className="py-1">
+                  <MenuItem>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                    >
+                      Profile
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                    >
+                      Saved recipes
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                    >
+                      Create a recipe
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                    >
+                      Account settings
+                    </a>
+                  </MenuItem>
+                </div>
+                <div className="py-1">
+                  <form action={signOut} className="flex items-center gap-2">
+                    <MenuItem>
+                      <button
+                        type="submit"
+                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                      >
+                        Sign out
+                      </button>
+                    </MenuItem>
+                  </form>
+                </div>
+              </MenuItems>
+            </Menu>
           ) : (
             <button className="bg-[#222222] text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-[#31572c]">
               <Link href="/login">Get Started</Link>
