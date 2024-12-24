@@ -12,6 +12,8 @@ export default async function Navbar() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log(user);
+
   return (
     <header className="px-3 py-2 z-10 sticky top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-[family-name:var(--font-geist-sans)]">
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
@@ -30,8 +32,8 @@ export default async function Navbar() {
           {user !== null ? (
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                  Account
+                <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200">
+                  <UserCircleIcon className="w-9 text-gray-400" />
                   <ChevronDownIcon
                     aria-hidden="true"
                     className="-mr-1 size-5 text-gray-400"
