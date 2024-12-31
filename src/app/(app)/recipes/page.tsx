@@ -1,10 +1,10 @@
 import config from "@payload-config";
 import Link from "next/link";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import type { Recipe } from "../../../payload-types";
 
 export default async function Recipes() {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
@@ -15,8 +15,6 @@ export default async function Recipes() {
 
   // Assert that result.docs is a Recipe array
   const recipes = result.docs as Recipe[];
-
-  console.log(recipes);
 
   return (
     <div className="p-3 pt-6 min-w-screen-xl w-full flex flex-col gap-4 ml-auto mr-auto">

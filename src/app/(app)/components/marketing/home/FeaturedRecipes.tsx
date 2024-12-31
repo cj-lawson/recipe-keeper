@@ -1,11 +1,11 @@
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import type { Recipe } from "../../../../../payload-types";
 import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
 
 export default async function FeaturedRecipes() {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
@@ -16,8 +16,6 @@ export default async function FeaturedRecipes() {
 
   // Assert that result.docs is a Recipe array
   const recipes = result.docs as Recipe[];
-
-  console.log(recipes);
 
   return (
     <section className="pt-6 max-w-screen-xl w-full flex flex-col gap-4 ml-auto mr-auto">

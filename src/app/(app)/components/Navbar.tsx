@@ -12,8 +12,6 @@ export default async function Navbar() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  console.log(user);
-
   return (
     <header className="px-3 py-2 z-10 sticky top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-[family-name:var(--font-geist-sans)]">
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
@@ -32,7 +30,7 @@ export default async function Navbar() {
           {user !== null ? (
             <Menu as="div" className="relative inline-block text-left">
               <div>
-                <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-gray-100 hover:bg-gray-200">
+                <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-[#FDFDFD] hover:opacity-90 border border-gray-200">
                   <UserCircleIcon className="w-9 text-gray-400" />
                   <ChevronDownIcon
                     aria-hidden="true"
@@ -53,20 +51,20 @@ export default async function Navbar() {
                 </div>
                 <div className="py-1">
                   <MenuItem>
-                    <a
-                      href="#"
+                    <Link
+                      href={`/profile/${user.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
                       Profile
-                    </a>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <a
-                      href="#"
+                    <Link
+                      href={`/profile/${user.id}/my-recipes`}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
                       Saved recipes
-                    </a>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
                     <a

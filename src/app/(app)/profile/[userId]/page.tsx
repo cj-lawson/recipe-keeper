@@ -1,25 +1,18 @@
-import { createClient } from "../../../../../utils/supabase/server";
-import { redirect } from "next/navigation";
-import Link from "next/link";
+import { getPayload } from "payload";
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import Link from "next/link";
+
+// Types
 import type { Recipe, Profile } from "../../../../payload-types";
 
-export default async function ProfilePage({
+export default async function MyRecipes({
   params,
 }: {
   params: { userId: string };
 }) {
   const userId = (await params).userId;
-  const supabase = await createClient();
-  const { data } = await supabase.auth.getSession();
 
-  // Ensure session exists and has a user
-  if (!data?.session || !data.session.user || data.session.user.id !== userId) {
-    redirect("/login");
-  }
-
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
@@ -34,13 +27,24 @@ export default async function ProfilePage({
 
   // Assert that result.docs is a Recipe array
   const recipes = result.docs[0].createdRecipes as Recipe[];
-
-  console.log(recipes);
+  const profile = result.docs[0] as Profile;
 
   return (
     <div className="min-h-screen min-w-screen-lg px-3 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
       <div className="flex flex-col gap-16 row-start-2 items-center sm:items-start">
-        <section className="max-w-screen-lg w-full flex flex-col pt-4 gap-12 ml-auto mr-auto md:flex-row md:justify-between">
+        <section className="w-full flex flex-col pt-4 gap-12 ml-auto mr-auto max-w-[760px]">
+          <div className="flex gap-2 items-center pt-4">
+            {profile.profilePhoto &&
+              typeof profile.profilePhoto !== "string" && (
+                <img
+                  src={profile.profilePhoto.url || ""}
+                  alt="Profile Photo"
+                  className="rounded-full w-24 h-24 object-cover object-center"
+                />
+              )}
+          </div>
+        </section>
+        <section className="w-full flex flex-col pt-4 gap-12 ml-auto mr-auto md:flex-row md:justify-between max-w-[760px]">
           <ul
             role="list"
             className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8"
@@ -67,23 +71,9 @@ export default async function ProfilePage({
                       </span>
                     </button>
                   </div>
-                  <p className="pointer-events-none mt-2 block truncate text-md font-medium text-gray-900">
+                  <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">
                     {doc.title}
                   </p>
-
-                  <div className="flex gap-2 items-center pt-4">
-                    {doc.createdBy &&
-                      typeof doc.createdBy !== "string" &&
-                      doc.createdBy.profilePhoto &&
-                      typeof doc.createdBy.profilePhoto !== "string" &&
-                      doc.createdBy.profilePhoto.url && (
-                        <img
-                          src={doc.createdBy.profilePhoto.url}
-                          alt={doc.createdBy.first_name ?? "Profile Photo"}
-                          className="rounded-full w-6 h-6"
-                        />
-                      )}
-                  </div>
                 </Link>
               </li>
             ))}
@@ -92,7 +82,4 @@ export default async function ProfilePage({
       </div>
     </div>
   );
-}
-function getPayloadClient() {
-  throw new Error("Function not implemented.");
 }

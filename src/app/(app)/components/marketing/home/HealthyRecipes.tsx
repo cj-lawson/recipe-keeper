@@ -1,10 +1,10 @@
 import config from "@payload-config";
-import { getPayloadHMR } from "@payloadcms/next/utilities";
+import { getPayload } from "payload";
 import type { Recipe } from "../../../../../payload-types";
 import Link from "next/link";
 
 export default async function FeaturedRecipes() {
-  const payload = await getPayloadHMR({
+  const payload = await getPayload({
     config,
   });
 
@@ -61,9 +61,7 @@ export default async function FeaturedRecipes() {
                       className="rounded-full w-6 h-6"
                     />
                   )}
-                <p className="pointer-events-none block text-sm font-medium text-gray-500">
-                  {doc.source}
-                </p>
+                
               </div>
             </Link>
           </li>
