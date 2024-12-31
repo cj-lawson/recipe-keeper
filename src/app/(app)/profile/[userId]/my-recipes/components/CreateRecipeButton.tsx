@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { PlusCircleIcon } from '@heroicons/react/20/solid';
 
 export default function CreateRecipeButton() {
   const router = useRouter();
@@ -12,9 +13,9 @@ export default function CreateRecipeButton() {
   return (
     <button
       onClick={handleClick}
-      className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+      className="px-4 py-2 bg-orange-600 text-white font-semibold rounded-full hover:bg-orange-700 flex flex-row items-center gap-2"
     >
-      + Create Recipe
+      <PlusCircleIcon className="w-5 h-5" /> Create Recipe
     </button>
   );
 }

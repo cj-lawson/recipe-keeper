@@ -1,9 +1,9 @@
-import { signOut } from "../login/actions";
-import { createClient } from "../../../../utils/supabase/server";
-import Link from "next/link";
-import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { signOut } from '../login/actions';
+import { createClient } from '../../../../utils/supabase/server';
+import Link from 'next/link';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default async function Navbar() {
   const supabase = await createClient();
@@ -17,13 +17,10 @@ export default async function Navbar() {
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <a className="mr-6 flex items-center space-x-2" href="/">
-            <span className="font-bold text-[#31572c] text-xl">BiteClub</span>
+            <span className="font-bold text-orange-600 text-xl">BiteClub</span>
           </a>
           <Link href="/recipes" className="font-semibold">
             Recipes
-          </Link>
-          <Link href="/recipes" className="font-semibold">
-            Demo
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">

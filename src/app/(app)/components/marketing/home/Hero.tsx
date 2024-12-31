@@ -38,7 +38,7 @@ export default function Hero() {
               <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
                 <a
                   href="#"
-                  className="flex items-center justify-center rounded-md border border-transparent bg-[#222222] px-4 py-3 text-base font-medium text-white sm:px-8"
+                  className="flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-4 py-3 text-base font-medium text-white sm:px-8"
                 >
                   Get started
                 </a>

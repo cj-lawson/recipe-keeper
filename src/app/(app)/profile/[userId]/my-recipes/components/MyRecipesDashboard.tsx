@@ -31,7 +31,7 @@ export default function MyRecipesDashboard({
   const currentTab = tabs.find((tab) => tab.key === activeTab) || tabs[0]; // Default to the first tab
 
   return (
-    <div className="min-h-screen pb-20 pt-10 max-w-screen-lg mx-auto">
+    <div className="min-h-screen pb-20 pt-16 max-w-screen-lg mx-auto font-[family-name:var(--font-geist-sans)]">
       {/* Tabs Navigation */}
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
@@ -43,7 +43,7 @@ export default function MyRecipesDashboard({
           ))
         ) : (
           <div className="text-center text-gray-500">
-            <p>No recipes found in "{currentTab.name}".</p>
+            <p>No recipes found in "{currentTab.name}"</p>
             {currentTab.key === 'created' && (
               <p>
                 <a
