@@ -1,9 +1,12 @@
 import config from "@payload-config";
 import { getPayload } from "payload";
 import { notFound } from "next/navigation";
+import { createClient } from "../../../../../utils/supabase/server";
 import type { Recipe } from "../../../../payload-types";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { UserIcon, BookmarkIcon } from "@heroicons/react/24/outline";
+import SaveButton from "../../components/ui/saveButton";
+import { saveRecipe } from "../../actions";
 
 export default async function Recipe({ params }: { params: { slug: string } }) {
   const { slug } = await params;
@@ -19,12 +22,15 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
 
   const recipe = recipes.docs[0] as Recipe;
 
-
-
-  // Ensure session exists and has a user
+ 
   if (!recipe) {
     notFound();
   }
+
+   // Check if user is logged in (server-side)
+   const supabase = createClient();
+   const { data: { user } } = await (await supabase).auth.getUser()
+   const userId = user?.id as string || null
 
   return (
     <>
@@ -80,9 +86,7 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
                   )}
               </div>
               <div>
-                <button className="px-3 py-1.5 bg-gray-800 text-white rounded-full flex items-center gap-2">
-                  Save
-                </button>
+                <SaveButton recipeId={recipe.id} userId={userId}/>
               </div>
             </div>
           </section>
