@@ -4,9 +4,8 @@ import { notFound } from "next/navigation";
 import { createClient } from "../../../../../utils/supabase/server";
 import type { Recipe } from "../../../../payload-types";
 import { ClockIcon } from "@heroicons/react/24/outline";
-import { UserIcon, BookmarkIcon } from "@heroicons/react/24/outline";
+import { UserIcon } from "@heroicons/react/24/outline";
 import SaveButton from "../../components/ui/saveButton";
-import { saveRecipe } from "../../actions";
 
 export default async function Recipe({ params }: { params: { slug: string } }) {
   const { slug } = await params;
@@ -31,6 +30,24 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
    const supabase = createClient();
    const { data: { user } } = await (await supabase).auth.getUser()
    const userId = user?.id as string || null
+
+   let isSaved = false;
+
+   if (userId) {
+    const profile = await payload.find({
+      collection: "profiles",
+      where: { id: { equals: userId } },
+    });
+
+    const existingProfile = profile.docs[0];
+
+        // Ensure savedRecipes is an array of IDs
+        const savedRecipes = Array.isArray(existingProfile.savedRecipes)
+        ? existingProfile.savedRecipes
+        : [];
+  
+      isSaved = savedRecipes.includes(recipe.id); // Check if recipe ID is saved
+      }
 
   return (
     <>
@@ -86,7 +103,7 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
                   )}
               </div>
               <div>
-                <SaveButton recipeId={recipe.id} userId={userId}/>
+                <SaveButton recipeId={recipe.id} userId={userId} initialIsSaved={isSaved}/>
               </div>
             </div>
           </section>

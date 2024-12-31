@@ -1,11 +1,11 @@
-import { getPayload } from "payload";
-import config from "@payload-config";
-import Link from "next/link";
+import { getPayload } from 'payload';
+import config from '@payload-config';
+import Link from 'next/link';
 
 // Types
-import type { Recipe, Profile } from "../../../../payload-types";
+import type { Recipe, Profile } from '../../../../payload-types';
 
-export default async function MyRecipes({
+export default async function PublicProfile({
   params,
 }: {
   params: { userId: string };
@@ -17,7 +17,7 @@ export default async function MyRecipes({
   });
 
   const result = await payload.find({
-    collection: "profiles",
+    collection: 'profiles',
     where: {
       id: {
         equals: userId,
@@ -35,9 +35,9 @@ export default async function MyRecipes({
         <section className="w-full flex flex-col pt-4 gap-12 ml-auto mr-auto max-w-[760px]">
           <div className="flex gap-2 items-center pt-4">
             {profile.profilePhoto &&
-              typeof profile.profilePhoto !== "string" && (
+              typeof profile.profilePhoto !== 'string' && (
                 <img
-                  src={profile.profilePhoto.url || ""}
+                  src={profile.profilePhoto.url || ''}
                   alt="Profile Photo"
                   className="rounded-full w-24 h-24 object-cover object-center"
                 />
@@ -54,7 +54,7 @@ export default async function MyRecipes({
                 <Link href={`/recipes/${doc.slug}`}>
                   <div className="group overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
                     {doc.mainImage &&
-                      typeof doc.mainImage !== "string" &&
+                      typeof doc.mainImage !== 'string' &&
                       doc.mainImage.url && (
                         <img
                           alt={doc.title}

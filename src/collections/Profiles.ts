@@ -30,6 +30,25 @@ export const Profiles: CollectionConfig = {
             type: 'relationship',
             relationTo: 'recipes',
             hasMany: true,
+            hooks: {
+                beforeChange: [
+                  async ({ data, value, operation }) => {
+                    if (operation === 'update' || operation === 'create') {
+                      // Ensure savedRecipes is an array
+                      const existingSavedRecipes = Array.isArray(data?.savedRecipes)
+                        ? data?.savedRecipes
+                        : [];
+        
+                      // Remove duplicates
+                      const uniqueRecipes = Array.from(new Set(existingSavedRecipes));
+        
+                      return uniqueRecipes;
+                    }
+        
+                    return value;
+                  },
+                ],
+              },
         },
         {
             name: 'createdRecipes',
