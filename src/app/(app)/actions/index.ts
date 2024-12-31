@@ -5,7 +5,7 @@ import config from "@payload-config";
 
 import { createClient } from "../../../../utils/supabase/server";
 
-// Save a recipe to a user's profile
+/***** Save a recipe to a user's profile ******/
 export async function saveRecipe({ recipeId }: { recipeId: string }) {
     const supabase = createClient();
   
@@ -51,3 +51,39 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
   });
   }
   
+
+/***** Create a new recipe ******/
+  export async function createRecipe(data: {
+    title: string;
+    description: string;
+    cookTime: number;
+    servings: number;
+    userId: string;
+  }) {
+    const payload = await getPayload({ config });
+  
+    const { title, description, cookTime, servings, userId } = data;
+  
+    if (!title || !description || !cookTime || !servings || !userId) {
+      throw new Error("Missing required fields.");
+    }
+  
+    try {
+      const newRecipe = await payload.create({
+        collection: "recipes",
+        data: {
+          title,
+          description,
+          cookTime,
+          servings,
+          createdBy: userId,
+          directions: []
+        },
+      });
+  
+      return newRecipe;
+    } catch (error) {
+      console.error("Error creating recipe:", error);
+      throw new Error("Failed to create recipe.");
+    }
+  }

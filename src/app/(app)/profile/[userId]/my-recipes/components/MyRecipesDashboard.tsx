@@ -12,12 +12,20 @@ export default function MyRecipesDashboard({
   createdRecipes: Recipe[];
   savedRecipes: Recipe[];
 }) {
+  // Combine saved and created recipes for "My Recipes" tab
+  const combinedRecipes = Array.from(
+    new Map(
+      [...createdRecipes, ...savedRecipes].map((recipe) => [recipe.id, recipe]),
+    ).values(),
+  );
+
   const tabs = [
-    { name: 'Created Recipes', key: 'created', recipes: createdRecipes },
+    { name: 'My Recipes', key: 'all', recipes: combinedRecipes },
     { name: 'Saved Recipes', key: 'saved', recipes: savedRecipes },
+    { name: 'Created Recipes', key: 'created', recipes: createdRecipes },
   ];
 
-  const [activeTab, setActiveTab] = useState('created');
+  const [activeTab, setActiveTab] = useState('all'); // Default to "My Recipes"
 
   // Add fallback in case `find` does not match a tab
   const currentTab = tabs.find((tab) => tab.key === activeTab) || tabs[0]; // Default to the first tab
