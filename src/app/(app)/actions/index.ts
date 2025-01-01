@@ -58,32 +58,81 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
     description: string;
     cookTime: number;
     servings: number;
-    userId: string;
+    isPublic: boolean;
+    cuisine: "italian" | "mexican" | "chinese" | "japanese" | "indian" | "Asian" | "other";
+    customCuisine?: string;
+    ingredients: {
+      amount: string; // Received as string
+      unit: "custom" | "cups" | "tbsp" | "tsp" | "grams" | "oz" | "lb" | "ml" | "l" | "pieces";
+      customUnit?: string;
+      ingredient: string;
+    }[];
+    directions: {
+      stepNumber: number;
+      instruction: string;
+    }[];
+    createdBy: string;
   }) {
     const payload = await getPayload({ config });
   
-    const { title, description, cookTime, servings, userId } = data;
+    const { title,
+      description,
+      cookTime,
+      servings,
+      isPublic,
+      cuisine,
+      customCuisine,
+      ingredients,
+      directions,
+      createdBy, } = data;
   
-    if (!title || !description || !cookTime || !servings || !userId) {
-      throw new Error("Missing required fields.");
-    }
-  
-    try {
-      const newRecipe = await payload.create({
-        collection: "recipes",
-        data: {
-          title,
-          description,
-          cookTime,
-          servings,
-          createdBy: userId,
-          directions: []
-        },
-      });
-  
-      return newRecipe;
-    } catch (error) {
-      console.error("Error creating recipe:", error);
-      throw new Error("Failed to create recipe.");
-    }
+      try {
+        // Convert amount to a number
+    const processedIngredients = ingredients.map((ingredient) => ({
+      ...ingredient,
+      amount: ingredient.amount ? Number(ingredient.amount) : null, // Convert to number or null
+    }));
+        const newRecipe = await payload.create({
+          collection: "recipes",
+          data: {
+            title,
+            description,
+            cookTime,
+            servings,
+            isPublic,
+            cuisine,
+            customCuisine,
+            ingredients: processedIngredients,
+            directions,
+            createdBy,
+          },
+        });
+
+// Retrieve the user's profile
+const userProfile = await payload.findByID({
+  collection: "profiles",
+  id: createdBy,
+});
+
+// Ensure the current array exists and add the new recipe ID
+const updatedCreatedRecipes = [
+  ...(userProfile.createdRecipes || []),
+  newRecipe.id,
+];
+
+// Update the user's profile with the new recipe in `createdRecipes`
+await payload.update({
+  collection: "profiles",
+  id: createdBy, // Use the user's ID to locate the profile
+  data: {
+    createdRecipes: updatedCreatedRecipes, // Provide the full updated array
+  },
+});
+
+    
+        return newRecipe;
+      } catch (error) {
+        console.error("Error creating recipe:", error);
+        throw new Error("Failed to create recipe.");
+      }
   }
