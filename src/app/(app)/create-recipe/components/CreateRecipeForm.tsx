@@ -3,6 +3,11 @@
 import { useState } from 'react';
 import { createRecipe } from '../../actions/index';
 
+// components
+import { IngredientsFieldset } from './IngredientsFieldset';
+import { InputField } from './InputField';
+import { TextareaField } from './TextareaField';
+
 export default function CreateRecipeForm({ userId }: { userId: string }) {
   const [isPending, setIsPending] = useState(false);
   const [formData, setFormData] = useState({
@@ -123,75 +128,34 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label
-          htmlFor="title"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Recipe Title
-        </label>
-        <input
-          type="text"
-          id="title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Description
-        </label>
-        <textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="cookTime"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Cook Time (minutes)
-        </label>
-        <input
-          type="number"
-          id="cookTime"
-          value={formData.cookTime}
-          onChange={(e) =>
-            setFormData({ ...formData, cookTime: e.target.value })
-          }
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-
-      <div>
-        <label
-          htmlFor="servings"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Servings
-        </label>
-        <input
-          type="number"
-          id="servings"
-          value={formData.servings}
-          onChange={(e) =>
-            setFormData({ ...formData, servings: e.target.value })
-          }
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-
+      <InputField
+        label="Recipe Title"
+        id="title"
+        value={formData.title}
+        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+      />
+      <TextareaField
+        label="Description"
+        id="description"
+        value={formData.description}
+        onChange={(e) =>
+          setFormData({ ...formData, description: e.target.value })
+        }
+      />
+      <InputField
+        label="Cook Time (minutes)"
+        id="cookTime"
+        type="number"
+        value={formData.cookTime}
+        onChange={(e) => setFormData({ ...formData, cookTime: e.target.value })}
+      />
+      <InputField
+        label="Servings"
+        id="servings"
+        type="number"
+        value={formData.servings}
+        onChange={(e) => setFormData({ ...formData, servings: e.target.value })}
+      />
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Cuisine
@@ -233,77 +197,11 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
           </div>
         )}
       </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Ingredients
-        </label>
-        {ingredients.map((ingredient, index) => (
-          <div key={index} className="flex gap-4 mt-2">
-            <input
-              type="number"
-              placeholder="Amount"
-              value={ingredient.amount}
-              onChange={(e) =>
-                handleIngredientChange(index, 'amount', e.target.value)
-              }
-              className="w-1/4 px-2 py-1 border border-gray-300 rounded"
-            />
-            <select
-              value={ingredient.unit}
-              onChange={(e) =>
-                handleIngredientChange(index, 'unit', e.target.value)
-              }
-              className="w-1/4 px-2 py-1 border border-gray-300 rounded"
-            >
-              <option value="">Unit</option>
-              <option value="cups">Cups</option>
-              <option value="tbsp">Tablespoons</option>
-              <option value="tsp">Teaspoons</option>
-              <option value="grams">Grams</option>
-              <option value="oz">Ounces</option>
-              <option value="lb">Pounds</option>
-              <option value="ml">Milliliters</option>
-              <option value="l">Liters</option>
-              <option value="pieces">Pieces</option>
-              <option value="custom">Custom</option>
-            </select>
-            {ingredient.unit === 'custom' && (
-              <input
-                type="text"
-                placeholder="Custom Unit"
-                value={ingredient.customUnit}
-                onChange={(e) =>
-                  handleIngredientChange(index, 'customUnit', e.target.value)
-                }
-                className="w-1/4 px-2 py-1 border border-gray-300 rounded"
-              />
-            )}
-            <input
-              type="text"
-              placeholder="Ingredient"
-              value={ingredient.ingredient}
-              onChange={(e) =>
-                handleIngredientChange(index, 'ingredient', e.target.value)
-              }
-              className="w-1/2 px-2 py-1 border border-gray-300 rounded"
-            />
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() =>
-            setIngredients([
-              ...ingredients,
-              { amount: '', unit: 'custom', customUnit: '', ingredient: '' },
-            ])
-          }
-          className="mt-2 text-indigo-600 hover:underline"
-        >
-          Add Ingredient
-        </button>
-      </div>
-
+      {/* Ingredient field */}
+      <IngredientsFieldset
+        ingredients={ingredients}
+        setIngredients={setIngredients}
+      />
       <div>
         <label className="block text-sm font-medium text-gray-700">
           Directions
