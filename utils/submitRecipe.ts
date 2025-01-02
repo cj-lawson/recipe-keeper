@@ -24,6 +24,8 @@ export async function submitRecipe({
   userId: string;
 }) {
   // Pass the raw File object to `createRecipe`
+  console.log('From submitRecipe Util')
+  console.log(formData.mainImage)
   await createRecipe({
     title: formData.title,
     description: formData.description,
@@ -49,38 +51,3 @@ export async function submitRecipe({
   });
 }
 
-
-
-// export async function submitRecipe({
-//   formData,
-//   ingredients,
-//   directions,
-//   userId,
-// }: {
-//   formData: any;
-//   ingredients: any[];
-//   directions: any[];
-//   userId: string;
-// }) {
-//   const cuisineValue = formData.cuisine as
-//     | "italian"
-//     | "mexican"
-//     | "chinese"
-//     | "japanese"
-//     | "indian"
-//     | "Asian"
-//     | "other";
-
-//   await createRecipe({
-//     ...formData,
-//     cuisine: cuisineValue,
-//     cookTime: Number(formData.cookTime),
-//     servings: Number(formData.servings),
-//     ingredients,
-//     directions: directions.map((direction, index) => ({
-//       ...direction,
-//       stepNumber: index + 1,
-//     })),
-//     createdBy: userId,
-//   });
-// }

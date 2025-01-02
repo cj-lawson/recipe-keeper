@@ -52,7 +52,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
       await submitRecipe({ formData, ingredients, directions, userId });
       alert('Recipe created successfully!');
       setFormData({
-        mainImage: null,
+        mainImage: null as File | null,
         title: '',
         description: '',
         cookTime: '',

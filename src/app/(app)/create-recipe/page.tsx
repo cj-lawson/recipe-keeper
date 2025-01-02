@@ -14,7 +14,7 @@ export default async function CreateRecipePage() {
   }
 
   return (
-    <div className="min-h-screen px-4 py-8 max-w-screen-lg mx-auto">
+    <div className="min-h-screen px-4 py-8 max-w-[760px] mx-auto">
       <h1 className="text-3xl font-bold mb-6">Create a Recipe</h1>
       <CreateRecipeForm userId={user.id} />
     </div>

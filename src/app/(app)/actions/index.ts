@@ -1,5 +1,7 @@
 "use server";
 
+import fs from 'fs';
+import path from 'path';
 import { getPayload } from "payload";
 import config from "@payload-config";
 
@@ -50,7 +52,44 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
     },
   });
   }
-  
+
+
+  /***** Upload image helper ******/
+ export async function uploadImageToPayload(mainImage: File | null): Promise<string | null>{
+
+    console.log('UPLOAD FUNCTION IS BEING USED')
+
+    if (!mainImage) {
+      console.log('NO FILE PROVIDED FOR UPLOAD')
+      return null;
+    } else {
+      console.log('FILE WAS PROVIDED FOR UPLOAD')
+    }
+
+    const payload = await getPayload({ config });
+
+
+    const arrayBuffer = await mainImage.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    const uploadImage = await payload.create({
+      collection: 'media',
+      data: {
+        alt: mainImage.name
+      },
+      file: {
+        data: buffer,
+        mimetype: mainImage.type,
+        size: mainImage.size,
+        name: mainImage.name,
+      },
+    });
+    console.log('hello from file upload helper')
+    console.log(uploadImage)
+    return uploadImage.id
+  }
+
+
 
 /***** Create a new recipe ******/
   export async function createRecipe(data: {
@@ -89,31 +128,17 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
       createdBy,
       mainImage,
     } = data;
+ console.log('FROM CREATE RECIPE')
+    console.log(mainImage)
   
     try {
-      // Handle file upload if `mainImage` is provided
-      let mainImageId: string | null = null;
-      if (mainImage) {
-        const formData = new FormData();
-        formData.append("file", mainImage);
-  
-        // Use Payload's REST API to upload the file
-        const response = await fetch(`${process.env.PAYLOAD_API_URL}/media`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.PAYLOAD_API_KEY}`, // Ensure you have an API key
-          },
-          body: formData,
-        });
-  
-        if (!response.ok) {
-          throw new Error("Failed to upload image");
-        }
-  
-        const uploadedImage = await response.json();
-        mainImageId = uploadedImage.id;
-      }
-  
+      console.log('FROM THE CREATE RECIPE FUNCTION')
+      console.log('Main Image:', mainImage);
+      console.log('Title:', title);
+      // Upload the image if provided
+      const mainImageId = await uploadImageToPayload(mainImage || null);
+      
+
       // Convert amount to a number
       const processedIngredients = ingredients.map((ingredient) => ({
         ...ingredient,
