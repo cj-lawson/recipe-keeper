@@ -11,6 +11,7 @@ import { useDirections } from '../_hooks/useDirections';
 import { submitRecipe } from '../../../../../utils/submitRecipe';
 
 // components
+import { ImageUploadField } from './ImageUploadField';
 import { IngredientsFieldset } from './IngredientsFieldset';
 import { InputField } from './InputField';
 import { TextareaField } from './TextareaField';
@@ -22,6 +23,7 @@ import { CustomCuisineField } from './CustomCuisineField';
 export default function CreateRecipeForm({ userId }: { userId: string }) {
   const [isPending, setIsPending] = useState(false);
   const [formData, setFormData] = useState({
+    mainImage: null as File | null,
     title: '',
     description: '',
     cookTime: '',
@@ -37,6 +39,11 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
     useIngredients();
   const { directions, setDirections, handleDirectionChange } = useDirections();
 
+  const handleImageChange = (file: File | null) => {
+    setFormData({ ...formData, mainImage: file });
+    console.log(formData);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsPending(true);
@@ -45,6 +52,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
       await submitRecipe({ formData, ingredients, directions, userId });
       alert('Recipe created successfully!');
       setFormData({
+        mainImage: null,
         title: '',
         description: '',
         cookTime: '',
@@ -69,6 +77,11 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <ImageUploadField
+        label="Cover Photo"
+        id="mainImage"
+        onChange={handleImageChange}
+      />
       <InputField
         label="Recipe Title"
         id="title"

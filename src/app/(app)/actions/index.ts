@@ -72,10 +72,12 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
       instruction: string;
     }[];
     createdBy: string;
+    mainImage?: File | null; 
   }) {
     const payload = await getPayload({ config });
   
-    const { title,
+    const {
+      title,
       description,
       cookTime,
       servings,
@@ -84,55 +86,82 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
       customCuisine,
       ingredients,
       directions,
-      createdBy, } = data;
+      createdBy,
+      mainImage,
+    } = data;
   
-      try {
-        // Convert amount to a number
-    const processedIngredients = ingredients.map((ingredient) => ({
-      ...ingredient,
-      amount: ingredient.amount ? Number(ingredient.amount) : null, // Convert to number or null
-    }));
-        const newRecipe = await payload.create({
-          collection: "recipes",
-          data: {
-            title,
-            description,
-            cookTime,
-            servings,
-            isPublic,
-            cuisine,
-            customCuisine,
-            ingredients: processedIngredients,
-            directions,
-            createdBy,
+    try {
+      // Handle file upload if `mainImage` is provided
+      let mainImageId: string | null = null;
+      if (mainImage) {
+        const formData = new FormData();
+        formData.append("file", mainImage);
+  
+        // Use Payload's REST API to upload the file
+        const response = await fetch(`${process.env.PAYLOAD_API_URL}/media`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.PAYLOAD_API_KEY}`, // Ensure you have an API key
           },
+          body: formData,
         });
-
-// Retrieve the user's profile
-const userProfile = await payload.findByID({
-  collection: "profiles",
-  id: createdBy,
-});
-
-// Ensure the current array exists and add the new recipe ID
-const updatedCreatedRecipes = [
-  ...(userProfile.createdRecipes || []),
-  newRecipe.id,
-];
-
-// Update the user's profile with the new recipe in `createdRecipes`
-await payload.update({
-  collection: "profiles",
-  id: createdBy, // Use the user's ID to locate the profile
-  data: {
-    createdRecipes: updatedCreatedRecipes, // Provide the full updated array
-  },
-});
-
-    
-        return newRecipe;
-      } catch (error) {
-        console.error("Error creating recipe:", error);
-        throw new Error("Failed to create recipe.");
+  
+        if (!response.ok) {
+          throw new Error("Failed to upload image");
+        }
+  
+        const uploadedImage = await response.json();
+        mainImageId = uploadedImage.id;
       }
+  
+      // Convert amount to a number
+      const processedIngredients = ingredients.map((ingredient) => ({
+        ...ingredient,
+        amount: ingredient.amount ? Number(ingredient.amount) : null, // Convert to number or null
+      }));
+  
+      // Create the new recipe
+      const newRecipe = await payload.create({
+        collection: "recipes",
+        data: {
+          title,
+          description,
+          cookTime,
+          servings,
+          isPublic,
+          cuisine,
+          customCuisine,
+          ingredients: processedIngredients,
+          directions,
+          createdBy,
+          mainImage: mainImageId, 
+        },
+      });
+  
+      // Retrieve the user's profile
+      const userProfile = await payload.findByID({
+        collection: "profiles",
+        id: createdBy,
+      });
+  
+      // Ensure the current array exists and add the new recipe ID
+      const updatedCreatedRecipes = [
+        ...(userProfile.createdRecipes || []),
+        newRecipe.id,
+      ];
+  
+      // Update the user's profile with the new recipe in `createdRecipes`
+      await payload.update({
+        collection: "profiles",
+        id: createdBy, // Use the user's ID to locate the profile
+        data: {
+          createdRecipes: updatedCreatedRecipes, // Provide the full updated array
+        },
+      });
+  
+      return newRecipe;
+    } catch (error) {
+      console.error("Error creating recipe:", error);
+      throw new Error("Failed to create recipe.");
+    }
   }
