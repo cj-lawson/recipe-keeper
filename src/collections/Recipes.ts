@@ -1,7 +1,6 @@
 import type { CollectionConfig, CollectionBeforeOperationHook } from 'payload'
 import {slugify} from '../../utils/slugify'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const generateSlug: CollectionBeforeOperationHook = (args) => {
   const { data }: any = args; // Destructure `data` from the args
   if (data?.title) {

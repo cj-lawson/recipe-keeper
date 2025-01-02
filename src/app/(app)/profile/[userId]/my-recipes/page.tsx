@@ -11,11 +11,15 @@ export default async function MyRecipesPage({
   params: { userId: string };
 }) {
   const { userId } = params;
+
+  // Ensure Supabase client is created
   const supabase = await createClient();
   const { data } = await supabase.auth.getSession();
 
+  // Check if the user is logged in and matches the userId
   if (!data?.session || !data.session.user || data.session.user.id !== userId) {
     redirect('/login');
+    return null; // Ensures the function terminates properly
   }
 
   const payload = await getPayload({ config });
@@ -29,6 +33,7 @@ export default async function MyRecipesPage({
 
   if (!profile.docs.length) {
     redirect('/login');
+    return null; // Ensures the function terminates properly
   }
 
   const savedRecipes = (profile.docs[0].savedRecipes as Recipe[]) || [];
