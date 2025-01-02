@@ -16,14 +16,20 @@ export default async function Navbar() {
     <header className="px-3 py-2 z-10 sticky top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 font-[family-name:var(--font-geist-sans)]">
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
         <nav className="flex items-center space-x-4 lg:space-x-6">
-          <a className="mr-6 flex items-center space-x-2" href="/">
+          <Link className="mr-6 flex items-center space-x-2" href="/">
             <span className="font-bold text-orange-600 text-xl">BiteClub</span>
-          </a>
-          <Link href="/recipes" className="font-semibold">
+          </Link>
+          <Link href="/recipes" className="font-semibold text-sm">
             Recipes
           </Link>
         </nav>
-        <div className="flex flex-1 items-center justify-end space-x-2">
+        <div className="flex flex-1 items-center justify-end space-x-4">
+          <Link
+            href={`/profile/${user?.id}/my-recipes`}
+            className="font-semibold text-sm"
+          >
+            My recipes
+          </Link>
           {user !== null ? (
             <Menu as="div" className="relative inline-block text-left">
               <div>
@@ -60,7 +66,7 @@ export default async function Navbar() {
                       href={`/profile/${user.id}/my-recipes`}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
-                      Saved recipes
+                      My recipes
                     </Link>
                   </MenuItem>
                   <MenuItem>
@@ -95,9 +101,14 @@ export default async function Navbar() {
               </MenuItems>
             </Menu>
           ) : (
-            <button className="bg-[#222222] text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-[#31572c]">
-              <Link href="/login">Get Started</Link>
-            </button>
+            <div className="space-x-4">
+              <Link href="/login" className="font-semibold text-sm">
+                Login
+              </Link>
+              <button className="bg-orange-600 text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-orange-500">
+                <Link href="/signup">Get Started</Link>
+              </button>
+            </div>
           )}
         </div>
       </div>

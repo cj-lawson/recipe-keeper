@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Hero() {
   return (
     <div className="relative w-full overflow-clip pt-4">
@@ -36,18 +38,18 @@ export default function Hero() {
             </p>
             <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
               <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-                <a
-                  href="#"
+                <Link
+                  href="/signup"
                   className="flex items-center justify-center rounded-md border border-transparent bg-orange-600 px-4 py-3 text-base font-medium text-white sm:px-8"
                 >
                   Get started
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/recipes"
                   className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-zinc-800 sm:px-8"
                 >
                   See all recipes
-                </a>
+                </Link>
               </div>
             </div>
           </div>

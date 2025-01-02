@@ -1,7 +1,6 @@
-import Hero from "./components/marketing/home/Hero";
-import FeaturedRecipes from "./components/marketing/home/FeaturedRecipes";
-import HealthyRecipes from "./components/marketing/home/HealthyRecipes";
-import Footer from "./components/marketing/shared/Footer";
+import Hero from './components/marketing/home/Hero';
+import FeaturedRecipes from './components/marketing/home/FeaturedRecipes';
+import Footer from './components/marketing/shared/Footer';
 
 export default function Home() {
   return (
@@ -9,7 +8,6 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Hero />
         <FeaturedRecipes />
-        <HealthyRecipes />
       </main>
       <Footer />
     </div>

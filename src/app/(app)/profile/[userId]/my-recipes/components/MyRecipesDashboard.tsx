@@ -36,7 +36,7 @@ export default function MyRecipesDashboard({
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Recipe List or Empty State */}
-      <div className="grid grid-cols-3 gap-4 mt-4">
+      <div className="grid grid-cols-3 gap-x-8 mt-8 gap-y-16">
         {currentTab.recipes.length > 0 ? (
           currentTab.recipes.map((recipe) => (
             <RecipeCard key={recipe.id} recipe={recipe} />

@@ -118,7 +118,7 @@ export function IngredientsFieldset({
             { amount: '', unit: 'custom', customUnit: '', ingredient: '' },
           ])
         }
-        className="mt-2 text-indigo-600 hover:underline"
+        className="mt-2 text-orange-600 hover:underline"
       >
         Add Ingredient
       </button>

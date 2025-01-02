@@ -40,8 +40,11 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
   const { directions, setDirections, handleDirectionChange } = useDirections();
 
   const handleImageChange = (file: File | null) => {
-    setFormData({ ...formData, mainImage: file });
-    console.log(formData);
+    setFormData((prev) => {
+      const updatedFormData = { ...prev, mainImage: file };
+      console.log(updatedFormData); // Log the updated state
+      return updatedFormData;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -147,7 +150,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+        className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
       >
         {isPending ? 'Submitting...' : 'Create Recipe'}
       </button>
