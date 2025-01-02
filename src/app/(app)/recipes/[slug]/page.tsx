@@ -1,18 +1,23 @@
-import config from "@payload-config";
-import { getPayload } from "payload";
-import { notFound } from "next/navigation";
-import { createClient } from "../../../../../utils/supabase/server";
-import type { Recipe } from "../../../../payload-types";
-import { ClockIcon } from "@heroicons/react/24/outline";
-import { UserIcon } from "@heroicons/react/24/outline";
-import SaveButton from "../../components/ui/saveButton";
+import config from '@payload-config';
+import { getPayload } from 'payload';
+import { notFound } from 'next/navigation';
+import { createClient } from '../../../../../utils/supabase/server';
+import type { Recipe } from '../../../../payload-types';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { UserIcon } from '@heroicons/react/24/outline';
+import SaveButton from '../../components/ui/saveButton';
 
-export default async function Recipe({ params }: { params: { slug: string } }) {
+type Params = Promise<{
+  slug: string;
+}>;
+
+export default async function Recipe({ params }: { params: Params }) {
   const { slug } = await params;
+
   const payload = await getPayload({ config });
 
   const recipes = await payload.find({
-    collection: "recipes",
+    collection: 'recipes',
     where: {
       slug: { equals: slug },
     },
@@ -21,33 +26,34 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
 
   const recipe = recipes.docs[0] as Recipe;
 
- 
   if (!recipe) {
     notFound();
   }
 
-   // Check if user is logged in (server-side)
-   const supabase = createClient();
-   const { data: { user } } = await (await supabase).auth.getUser()
-   const userId = user?.id as string || null
+  // Check if user is logged in (server-side)
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await (await supabase).auth.getUser();
+  const userId = (user?.id as string) || null;
 
-   let isSaved = false;
+  let isSaved = false;
 
-   if (userId) {
+  if (userId) {
     const profile = await payload.find({
-      collection: "profiles",
+      collection: 'profiles',
       where: { id: { equals: userId } },
     });
 
     const existingProfile = profile.docs[0];
 
-        // Ensure savedRecipes is an array of IDs
-        const savedRecipes = Array.isArray(existingProfile.savedRecipes)
-        ? existingProfile.savedRecipes
-        : [];
-  
-      isSaved = savedRecipes.includes(recipe.id); // Check if recipe ID is saved
-      }
+    // Ensure savedRecipes is an array of IDs
+    const savedRecipes = Array.isArray(existingProfile.savedRecipes)
+      ? existingProfile.savedRecipes
+      : [];
+
+    isSaved = savedRecipes.includes(recipe.id); // Check if recipe ID is saved
+  }
 
   return (
     <>
@@ -73,7 +79,7 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
             </div>
             <div className="relative w-full">
               {recipe.mainImage &&
-                typeof recipe.mainImage !== "string" &&
+                typeof recipe.mainImage !== 'string' &&
                 recipe.mainImage.url && (
                   <img
                     src={recipe.mainImage.url}
@@ -85,25 +91,29 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
             <div className="flex justify-between">
               <div className="flex items-center gap-2 mb-8">
                 {recipe.createdBy &&
-                  typeof recipe.createdBy !== "string" &&
+                  typeof recipe.createdBy !== 'string' &&
                   recipe.createdBy.profilePhoto &&
-                  typeof recipe.createdBy.profilePhoto !== "string" &&
+                  typeof recipe.createdBy.profilePhoto !== 'string' &&
                   recipe.createdBy.profilePhoto.url && (
                     <>
                       <img
                         src={recipe.createdBy.profilePhoto.url}
-                        alt={recipe.createdBy.first_name ?? "Profile Photo"}
+                        alt={recipe.createdBy.first_name ?? 'Profile Photo'}
                         className="rounded-full w-9 h-9"
                       />
                       <p className="pointer-events-none block text-sm font-medium text-gray-500">
-                        {recipe.createdBy.first_name}{" "}
+                        {recipe.createdBy.first_name}{' '}
                         {recipe.createdBy.last_name}
                       </p>
                     </>
                   )}
               </div>
               <div>
-                <SaveButton recipeId={recipe.id} userId={userId} initialIsSaved={isSaved}/>
+                <SaveButton
+                  recipeId={recipe.id}
+                  userId={userId}
+                  initialIsSaved={isSaved}
+                />
               </div>
             </div>
           </section>
@@ -117,15 +127,11 @@ export default async function Recipe({ params }: { params: { slug: string } }) {
                 <h2 className="text-xl font-semibold mb-2">Details</h2>
                 <div className="flex gap-1">
                   <ClockIcon className="w-4 text-[#132a13] opacity-70" />
-                  {
-                    recipe.cookTime
-                  } minutes
+                  {recipe.cookTime} minutes
                 </div>
                 <div className="flex gap-2">
                   <UserIcon className="w-4 text-[#132a13] opacity-70" />
-                  {
-                    recipe.servings
-                  } servings
+                  {recipe.servings} servings
                 </div>
               </div>
               <div className="md:basis-1/2">
