@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
-import { createClient } from '../../../../../../utils/supabase/server';
+import { createClient } from '../../../../../utils/supabase/server';
 import { getPayload } from 'payload';
 import config from '@payload-config';
 import MyRecipesDashboard from './components/MyRecipesDashboard';
-import type { Recipe } from '../../../../../payload-types';
+import type { Recipe } from '../../../../payload-types';
 
 export default async function MyRecipesPage({
   params,

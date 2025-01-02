@@ -25,7 +25,7 @@ export default async function Navbar() {
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <Link
-            href={`/profile/${user?.id}/my-recipes`}
+            href={`/my-recipes/${user?.id}`}
             className="font-semibold text-sm"
           >
             My recipes
@@ -63,7 +63,7 @@ export default async function Navbar() {
                   </MenuItem>
                   <MenuItem>
                     <Link
-                      href={`/profile/${user.id}/my-recipes`}
+                      href={`/my-recipes/${user.id}`}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                     >
                       My recipes

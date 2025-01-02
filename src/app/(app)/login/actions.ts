@@ -30,7 +30,7 @@ export async function login(formData: FormData) {
   // }
 
   revalidatePath('/', 'layout')
-  redirect(`/profile/${userId}/my-recipes`)
+  redirect(`/my-recipes/${userId}`)
 }
 
 
@@ -51,7 +51,7 @@ export async function signup(formData: FormData) {
 
   if (session?.user) {
     const userId = session.user.id
-    redirect(`/profile/${userId}/my-recipes`)
+    redirect(`/my-recipes/${userId}`)
   } else {
     redirect('/error')
   }

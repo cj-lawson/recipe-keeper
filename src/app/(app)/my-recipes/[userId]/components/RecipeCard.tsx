@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { ClockIcon } from '@heroicons/react/24/outline';
-import type { Recipe } from '../../../../../../payload-types';
+import type { Recipe } from '../../../../../payload-types';
 
 export default function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (

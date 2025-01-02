@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Tabs from './Tabs';
 import RecipeCard from './RecipeCard';
-import type { Recipe } from '../../../../../../payload-types';
+import type { Recipe } from '../../../../../payload-types';
 
 export default function MyRecipesDashboard({
   createdRecipes,
