@@ -1,12 +1,16 @@
 import type { CollectionConfig, CollectionBeforeOperationHook } from 'payload'
 import {slugify} from '../../utils/slugify'
 
+interface RecipeData {
+  title?: string;
+  slug?: string;
+}
 
-
-const generateSlug: CollectionBeforeOperationHook = ({ data }: any) => {
-    if(data.title) {
-        data.slug = slugify(data.title)
-    }
+const generateSlug: CollectionBeforeOperationHook = (args) => {
+  const { data }: any = args; // Destructure `data` from the args
+  if (data?.title) {
+    data.slug = slugify(data.title);
+  }
 };
 
 export const Recipes: CollectionConfig = {
