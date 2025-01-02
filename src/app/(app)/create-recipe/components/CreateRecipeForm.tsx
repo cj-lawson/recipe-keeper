@@ -3,10 +3,21 @@
 import { useState } from 'react';
 import { createRecipe } from '../../actions/index';
 
+// Hooks
+import { useIngredients } from '../_hooks/useIngredients';
+import { useDirections } from '../_hooks/useDirections';
+
+// utils
+import { submitRecipe } from '../../../../../utils/submitRecipe';
+
 // components
 import { IngredientsFieldset } from './IngredientsFieldset';
 import { InputField } from './InputField';
 import { TextareaField } from './TextareaField';
+import { SelectField } from './SelectField';
+import { DirectionsField } from './DirectionsField';
+import { CheckboxField } from './CheckboxField';
+import { CustomCuisineField } from './CustomCuisineField';
 
 export default function CreateRecipeForm({ userId }: { userId: string }) {
   const [isPending, setIsPending] = useState(false);
@@ -22,53 +33,16 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
     directions: [],
   });
 
-  const [ingredients, setIngredients] = useState<
-    {
-      amount: string;
-      unit:
-        | 'custom'
-        | 'cups'
-        | 'tbsp'
-        | 'tsp'
-        | 'grams'
-        | 'oz'
-        | 'lb'
-        | 'ml'
-        | 'l'
-        | 'pieces';
-      customUnit?: string;
-      ingredient: string;
-    }[]
-  >([{ amount: '', unit: 'cups', customUnit: '', ingredient: '' }]);
-  const [directions, setDirections] = useState([{ instruction: '' }]);
+  const { ingredients, setIngredients, handleIngredientChange } =
+    useIngredients();
+  const { directions, setDirections, handleDirectionChange } = useDirections();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsPending(true);
 
     try {
-      // Ensure `cuisine` is typed correctly
-      const cuisineValue = formData.cuisine as
-        | 'italian'
-        | 'mexican'
-        | 'chinese'
-        | 'japanese'
-        | 'indian'
-        | 'Asian'
-        | 'other';
-
-      await createRecipe({
-        ...formData,
-        cuisine: cuisineValue, // Pass the validated value
-        cookTime: Number(formData.cookTime),
-        servings: Number(formData.servings),
-        ingredients,
-        directions: directions.map((direction, index) => ({
-          ...direction,
-          stepNumber: index + 1,
-        })),
-        createdBy: userId,
-      });
+      await submitRecipe({ formData, ingredients, directions, userId });
       alert('Recipe created successfully!');
       setFormData({
         title: '',
@@ -91,39 +65,6 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
     } finally {
       setIsPending(false);
     }
-  };
-
-  const handleIngredientChange = (
-    index: number,
-    field: keyof (typeof ingredients)[number],
-    value: string,
-  ) => {
-    const updatedIngredients = [...ingredients];
-
-    if (field === 'unit') {
-      // Cast value to the correct type for `unit`
-      updatedIngredients[index][field] = value as
-        | 'custom'
-        | 'cups'
-        | 'tbsp'
-        | 'tsp'
-        | 'grams'
-        | 'oz'
-        | 'lb'
-        | 'ml'
-        | 'l'
-        | 'pieces';
-    } else {
-      updatedIngredients[index][field] = value;
-    }
-
-    setIngredients(updatedIngredients);
-  };
-
-  const handleDirectionChange = (index: number, value: string) => {
-    const updatedDirections = [...directions];
-    updatedDirections[index].instruction = value;
-    setDirections(updatedDirections);
   };
 
   return (
@@ -156,89 +97,40 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
         value={formData.servings}
         onChange={(e) => setFormData({ ...formData, servings: e.target.value })}
       />
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Cuisine
-        </label>
-        <select
-          value={formData.cuisine}
-          onChange={(e) =>
-            setFormData({ ...formData, cuisine: e.target.value })
-          }
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-        >
-          <option value="">Select Cuisine</option>
-          <option value="italian">Italian</option>
-          <option value="mexican">Mexican</option>
-          <option value="chinese">Chinese</option>
-          <option value="japanese">Japanese</option>
-          <option value="indian">Indian</option>
-          <option value="Asian">Asian</option>
-          <option value="other">Other</option>
-        </select>
-
-        {formData.cuisine === 'other' && (
-          <div className="mt-4">
-            <label
-              htmlFor="customCuisine"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Custom Cuisine
-            </label>
-            <input
-              type="text"
-              id="customCuisine"
-              value={formData.customCuisine}
-              onChange={(e) =>
-                setFormData({ ...formData, customCuisine: e.target.value })
-              }
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-            />
-          </div>
-        )}
-      </div>
-      {/* Ingredient field */}
+      <SelectField
+        label="Cuisine"
+        id="cuisine"
+        value={formData.cuisine}
+        options={[
+          { label: 'Select Cuisine', value: '' },
+          { label: 'Italian', value: 'italian' },
+          { label: 'Mexican', value: 'mexican' },
+          { label: 'Chinese', value: 'chinese' },
+          { label: 'Japanese', value: 'japanese' },
+          { label: 'Indian', value: 'indian' },
+          { label: 'Asian', value: 'Asian' },
+          { label: 'Other', value: 'other' },
+        ]}
+        onChange={(e) => setFormData({ ...formData, cuisine: e.target.value })}
+      />
+      <CustomCuisineField
+        show={formData.cuisine === 'other'}
+        value={formData.customCuisine}
+        onChange={(e) =>
+          setFormData({ ...formData, customCuisine: e.target.value })
+        }
+      />
       <IngredientsFieldset
         ingredients={ingredients}
         setIngredients={setIngredients}
       />
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Directions
-        </label>
-        {directions.map((direction, index) => (
-          <div key={index} className="flex gap-4 mt-2">
-            <textarea
-              placeholder={`Step ${index + 1}`}
-              value={direction.instruction}
-              onChange={(e) => handleDirectionChange(index, e.target.value)}
-              className="w-full px-2 py-1 border border-gray-300 rounded"
-            />
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() => setDirections([...directions, { instruction: '' }])}
-          className="mt-2 text-indigo-600 hover:underline"
-        >
-          Add Step
-        </button>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Make Public
-        </label>
-        <input
-          type="checkbox"
-          checked={formData.isPublic}
-          onChange={(e) =>
-            setFormData({ ...formData, isPublic: e.target.checked })
-          }
-          className="mt-1"
-        />
-      </div>
-
+      <DirectionsField directions={directions} setDirections={setDirections} />
+      <CheckboxField
+        label="Make Public"
+        id="make-public"
+        checked={formData.isPublic}
+        onChange={(checked) => setFormData({ ...formData, isPublic: checked })}
+      />
       <button
         type="submit"
         disabled={isPending}
