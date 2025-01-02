@@ -43,7 +43,7 @@ export default function MyRecipesDashboard({
           ))
         ) : (
           <div className="text-center text-gray-500">
-            <p>No recipes found in "{currentTab.name}"</p>
+            <p>No recipes found in &quot;{currentTab.name}&quot;</p>
             {currentTab.key === 'created' && (
               <p>
                 <a
