@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { createRecipe } from '../../actions/index';
 
 // Hooks
 import { useIngredients } from '../_hooks/useIngredients';
@@ -35,9 +34,8 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
     directions: [],
   });
 
-  const { ingredients, setIngredients, handleIngredientChange } =
-    useIngredients();
-  const { directions, setDirections, handleDirectionChange } = useDirections();
+  const { ingredients, setIngredients } = useIngredients();
+  const { directions, setDirections } = useDirections();
 
   const handleImageChange = (file: File | null) => {
     setFormData((prev) => {

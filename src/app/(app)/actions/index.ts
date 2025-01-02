@@ -1,7 +1,5 @@
 "use server";
 
-import fs from 'fs';
-import path from 'path';
 import { getPayload } from "payload";
 import config from "@payload-config";
 

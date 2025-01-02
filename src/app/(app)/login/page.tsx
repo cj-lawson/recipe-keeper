@@ -1,4 +1,4 @@
-import { signup, login } from './actions';
+import { login } from './actions';
 import Link from 'next/link';
 
 export default function Login() {
