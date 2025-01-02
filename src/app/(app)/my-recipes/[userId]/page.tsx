@@ -10,7 +10,7 @@ export default async function MyRecipesPage({
 }: {
   params: { userId: string };
 }) {
-  const { userId } = params;
+  const userId = (await params).userId;
 
   // Ensure Supabase client is created
   const supabase = await createClient();
