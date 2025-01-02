@@ -1,7 +1,7 @@
-import config from "@payload-config";
-import Link from "next/link";
-import { getPayload } from "payload";
-import type { Recipe } from "../../../payload-types";
+import config from '@payload-config';
+import Link from 'next/link';
+import { getPayload } from 'payload';
+import type { Recipe } from '../../../payload-types';
 
 export default async function Recipes() {
   const payload = await getPayload({
@@ -9,7 +9,7 @@ export default async function Recipes() {
   });
 
   const result = await payload.find({
-    collection: "recipes",
+    collection: 'recipes',
     depth: 2,
   });
 
@@ -28,7 +28,7 @@ export default async function Recipes() {
               <Link href={`/recipes/${doc.slug}`}>
                 <div className="group overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
                   {doc.mainImage &&
-                    typeof doc.mainImage !== "string" &&
+                    typeof doc.mainImage !== 'string' &&
                     doc.mainImage.url && (
                       <img
                         alt={doc.title}
@@ -36,14 +36,6 @@ export default async function Recipes() {
                         className="pointer-events-none aspect-[10/7] object-cover group-hover:opacity-75"
                       />
                     )}
-                  <button
-                    type="button"
-                    className="absolute inset-0 focus:outline-none"
-                  >
-                    <span className="sr-only">
-                      View details for {doc.title}
-                    </span>
-                  </button>
                 </div>
                 <p className="pointer-events-none mt-2 block truncate text-md font-medium text-gray-900">
                   {doc.title}
@@ -51,13 +43,13 @@ export default async function Recipes() {
 
                 <div className="flex gap-2 items-center pt-4">
                   {doc.createdBy &&
-                    typeof doc.createdBy !== "string" &&
+                    typeof doc.createdBy !== 'string' &&
                     doc.createdBy.profilePhoto &&
-                    typeof doc.createdBy.profilePhoto !== "string" &&
+                    typeof doc.createdBy.profilePhoto !== 'string' &&
                     doc.createdBy.profilePhoto.url && (
                       <img
                         src={doc.createdBy.profilePhoto.url}
-                        alt={doc.createdBy.first_name ?? "Profile Photo"}
+                        alt={doc.createdBy.first_name ?? 'Profile Photo'}
                         className="rounded-full w-6 h-6"
                       />
                     )}
