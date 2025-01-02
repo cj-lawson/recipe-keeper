@@ -56,9 +56,6 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
 
   /***** Upload image helper ******/
  export async function uploadImageToPayload(mainImage: File | null): Promise<string | null>{
-
-    console.log('UPLOAD FUNCTION IS BEING USED')
-
     if (!mainImage) {
       console.log('NO FILE PROVIDED FOR UPLOAD')
       return null;
@@ -84,8 +81,6 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
         name: mainImage.name,
       },
     });
-    console.log('hello from file upload helper')
-    console.log(uploadImage)
     return uploadImage.id
   }
 
@@ -101,7 +96,7 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
     cuisine: "italian" | "mexican" | "chinese" | "japanese" | "indian" | "Asian" | "other";
     customCuisine?: string;
     ingredients: {
-      amount: string; // Received as string
+      amount: string;
       unit: "custom" | "cups" | "tbsp" | "tsp" | "grams" | "oz" | "lb" | "ml" | "l" | "pieces";
       customUnit?: string;
       ingredient: string;
@@ -128,17 +123,12 @@ export async function saveRecipe({ recipeId }: { recipeId: string }) {
       createdBy,
       mainImage,
     } = data;
- console.log('FROM CREATE RECIPE')
-    console.log(mainImage)
   
     try {
-      console.log('FROM THE CREATE RECIPE FUNCTION')
-      console.log('Main Image:', mainImage);
-      console.log('Title:', title);
+      
       // Upload the image if provided
       const mainImageId = await uploadImageToPayload(mainImage || null);
-      
-
+    
       // Convert amount to a number
       const processedIngredients = ingredients.map((ingredient) => ({
         ...ingredient,
