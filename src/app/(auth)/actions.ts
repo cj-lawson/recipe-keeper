@@ -46,7 +46,7 @@ export async function signup(formData: FormData) {
   const { error, data: session } = await supabase.auth.signUp(data)
 
   if (error) {
-    console.log(error)
+    console.log(data)
     redirect('/error')
   }
 
