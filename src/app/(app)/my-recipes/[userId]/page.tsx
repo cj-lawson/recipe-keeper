@@ -5,12 +5,10 @@ import config from '@payload-config';
 import MyRecipesDashboard from './components/MyRecipesDashboard';
 import type { Recipe } from '../../../../payload-types';
 
-export default async function MyRecipesPage({
-  params,
-}: {
-  params: { userId: string };
-}) {
-  const userId = params.userId;
+type Params = Promise<{ userId: string }>;
+
+export default async function MyRecipesPage({ params }: { params: Params }) {
+  const { userId } = await params;
 
   // Ensure Supabase client is created
   const supabase = await createClient();

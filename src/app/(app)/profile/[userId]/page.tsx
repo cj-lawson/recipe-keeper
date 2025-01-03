@@ -4,13 +4,10 @@ import Link from 'next/link';
 
 // Types
 import type { Recipe, Profile } from '../../../../payload-types';
+type Params = Promise<{ userId: string }>;
 
-export default async function PublicProfile({
-  params,
-}: {
-  params: { userId: string };
-}) {
-  const userId = params.userId;
+export default async function PublicProfile({ params }: { params: Params }) {
+  const { userId } = await params;
 
   const payload = await getPayload({
     config,
