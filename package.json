@@ -2,12 +2,14 @@
   "name": "recipe-keeper",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:types": "npx payload generate:types"
+    "generate:types": "npx payload generate:types",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",

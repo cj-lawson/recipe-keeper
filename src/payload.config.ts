@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { migrations } from './migrations'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -20,12 +21,14 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
+  
   
   collections: [Users, Media, Documents, Profiles, Categories, Recipes],
   editor: lexicalEditor(),
@@ -35,11 +38,13 @@ export default buildConfig({
   },
   db: postgresAdapter({
     idType: "uuid",
+    prodMigrations: migrations,
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
   sharp,
+
   plugins: [
     payloadCloudPlugin(),
     s3Storage({
