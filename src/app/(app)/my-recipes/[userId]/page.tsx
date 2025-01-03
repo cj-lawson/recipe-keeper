@@ -5,16 +5,10 @@ import config from '@payload-config';
 import MyRecipesDashboard from './components/MyRecipesDashboard';
 import type { Recipe } from '../../../../payload-types';
 
-type Params = Promise<{
-  userId: any;
-  slug: string;
-}>;
-
 export default async function MyRecipesPage({
   params,
 }: {
-  // params: { userId: string };
-  params: Params;
+  params: { userId: string };
 }) {
   const userId = (await params).userId;
 
