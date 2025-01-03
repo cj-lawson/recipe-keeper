@@ -46,12 +46,12 @@ export async function signup(formData: FormData) {
   const { error, data: session } = await supabase.auth.signUp(data)
 
   if (error) {
-    console.log(data)
     redirect('/error')
   }
 
   if (session?.user) {
     const userId = session.user.id
+    console.log('User created with ID:', userId); // Debugging log
     redirect(`/my-recipes/${userId}`)
   } else {
     redirect('/error')
