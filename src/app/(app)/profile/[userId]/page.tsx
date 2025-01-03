@@ -10,7 +10,7 @@ export default async function PublicProfile({
 }: {
   params: { userId: string };
 }) {
-  const userId = (await params).userId;
+  const userId = params.userId;
 
   const payload = await getPayload({
     config,

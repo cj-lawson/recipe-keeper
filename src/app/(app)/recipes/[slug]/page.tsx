@@ -8,7 +8,7 @@ import { UserIcon } from '@heroicons/react/24/outline';
 import SaveButton from '../../components/ui/saveButton';
 
 export default async function Recipe({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+  const { slug } = params;
   const payload = await getPayload({ config });
 
   const recipes = await payload.find({
