@@ -1,6 +1,5 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { migrations } from './migrations'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
@@ -38,7 +37,6 @@ export default buildConfig({
   },
   db: postgresAdapter({
     idType: "uuid",
-    prodMigrations: migrations,
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
