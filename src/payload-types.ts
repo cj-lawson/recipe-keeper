@@ -152,6 +152,9 @@ export interface Recipe {
   description?: string | null;
   cookTime?: number | null;
   datePublished?: string | null;
+  /**
+   * Number of servings this recipe makes.
+   */
   servings?: number | null;
   cuisine?: ('italian' | 'mexican' | 'chinese' | 'japanese' | 'indian' | 'Asian' | 'other') | null;
   customCuisine?: string | null;

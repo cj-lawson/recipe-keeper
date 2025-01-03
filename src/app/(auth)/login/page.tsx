@@ -1,12 +1,12 @@
-import { signup } from '../login/actions';
+import { login } from '../actions';
 import Link from 'next/link';
 
-export default function signUp() {
+export default async function Login() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[#31572c]">
-          Become a BiteClub Member
+        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-orange-600">
+          BiteClub
         </h1>
       </div>
 
@@ -39,6 +39,14 @@ export default function signUp() {
               >
                 Password
               </label>
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-medium text-orange-600 hover:text-orange-700"
+                >
+                  Forgot password?
+                </a>
+              </div>
             </div>
             <div className="mt-2">
               <input
@@ -55,19 +63,19 @@ export default function signUp() {
           <div>
             <button
               type="submit"
-              formAction={signup}
-              className="flex w-full justify-center rounded-md bg-[#132a13] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#31572c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              formAction={login}
+              className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Create free account
+              Login
             </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
-          already a member?{' '}
+          Not a member?{' '}
           <Link
-            href="/login"
-            className="font-semibold text-[#4f772d] hover:text-[#132a13]"
+            href="/signup"
+            className="font-semibold text-orange-600 hover:text-orange-700"
           >
             Create a free account
           </Link>

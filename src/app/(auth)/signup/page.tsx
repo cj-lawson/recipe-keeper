@@ -1,12 +1,12 @@
-import { login } from './actions';
+import { signup } from '../actions';
 import Link from 'next/link';
 
-export default function Login() {
+export default function signUp() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[#31572c]">
-          BiteClub
+          Become a BiteClub Member
         </h1>
       </div>
 
@@ -39,14 +39,6 @@ export default function Login() {
               >
                 Password
               </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-[#4f772d] hover:text-[#132a13]"
-                >
-                  Forgot password?
-                </a>
-              </div>
             </div>
             <div className="mt-2">
               <input
@@ -63,18 +55,18 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              formAction={login}
+              formAction={signup}
               className="flex w-full justify-center rounded-md bg-[#132a13] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#31572c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Login
+              Create free account
             </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm/6 text-gray-500">
-          Not a member?{' '}
+          already a member?{' '}
           <Link
-            href="/signup"
+            href="/login"
             className="font-semibold text-[#4f772d] hover:text-[#132a13]"
           >
             Create a free account

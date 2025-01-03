@@ -1,4 +1,4 @@
-import { signOut } from '../login/actions';
+import { signOut } from '../../(auth)/actions';
 import { createClient } from '../../../../utils/supabase/server';
 import Link from 'next/link';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
