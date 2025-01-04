@@ -24,82 +24,84 @@ export default async function Navbar() {
           </Link>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Link
-            href={`/my-recipes/${user?.id}`}
-            className="font-semibold text-sm"
-          >
-            My recipes
-          </Link>
           {user !== null ? (
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-[#FDFDFD] hover:opacity-90 border border-gray-200">
-                  <UserCircleIcon className="w-9 text-gray-400" />
-                  <ChevronDownIcon
-                    aria-hidden="true"
-                    className="-mr-1 size-5 text-gray-400"
-                  />
-                </MenuButton>
-              </div>
-
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+            <>
+              <Link
+                href={`/my-recipes/${user?.id}`}
+                className="font-semibold text-sm"
               >
-                <div className="px-4 py-3">
-                  <p className="text-sm">Signed in as</p>
-                  <p className="truncate text-sm font-medium text-gray-900">
-                    {user.email}
-                  </p>
+                My recipes
+              </Link>
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-[#FDFDFD] hover:opacity-90 border border-gray-200">
+                    <UserCircleIcon className="w-9 text-gray-400" />
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="-mr-1 size-5 text-gray-400"
+                    />
+                  </MenuButton>
                 </div>
-                <div className="py-1">
-                  <MenuItem>
-                    <Link
-                      href={`/profile/${user.id}`}
-                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-                    >
-                      Profile
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link
-                      href={`/my-recipes/${user.id}`}
-                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-                    >
-                      My recipes
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <Link
-                      href={'/create-recipe'}
-                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-                    >
-                      Create a recipe
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-                    >
-                      Account settings
-                    </a>
-                  </MenuItem>
-                </div>
-                <div className="py-1">
-                  <form action={signOut} className="flex items-center gap-2">
+
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <div className="px-4 py-3">
+                    <p className="text-sm">Signed in as</p>
+                    <p className="truncate text-sm font-medium text-gray-900">
+                      {user.email}
+                    </p>
+                  </div>
+                  <div className="py-1">
                     <MenuItem>
-                      <button
-                        type="submit"
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                      <Link
+                        href={`/profile/${user.id}`}
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
                       >
-                        Sign out
-                      </button>
+                        Profile
+                      </Link>
                     </MenuItem>
-                  </form>
-                </div>
-              </MenuItems>
-            </Menu>
+                    <MenuItem>
+                      <Link
+                        href={`/my-recipes/${user.id}`}
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                      >
+                        My recipes
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        href={'/create-recipe'}
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                      >
+                        Create a recipe
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                      >
+                        Account settings
+                      </a>
+                    </MenuItem>
+                  </div>
+                  <div className="py-1">
+                    <form action={signOut} className="flex items-center gap-2">
+                      <MenuItem>
+                        <button
+                          type="submit"
+                          className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
+                        >
+                          Sign out
+                        </button>
+                      </MenuItem>
+                    </form>
+                  </div>
+                </MenuItems>
+              </Menu>
+            </>
           ) : (
             <div className="space-x-4">
               <Link href="/login" className="font-semibold text-sm">
