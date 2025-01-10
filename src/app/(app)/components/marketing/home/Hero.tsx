@@ -9,7 +9,7 @@ export default function Hero() {
             <img
               alt="People working on laptops"
               src="/food-1.webp"
-              className="absolute left-48 top-[-80px] w-60"
+              className="hidden sm:block absolute left-48 top-[-80px] w-60"
             />
             <img
               alt="People working on laptops"
@@ -19,12 +19,12 @@ export default function Hero() {
             <img
               alt="People working on laptops"
               src="/food-3.webp"
-              className="absolute right-24 top-0 w-60"
+              className="hidden sm:block absolute right-24 top-0 w-60"
             />
             <img
               alt="People working on laptops"
               src="/food-4.webp"
-              className="absolute right-8 bottom-[-80px] w-60"
+              className="hidden sm:block absolute right-8 bottom-[-80px] w-60"
             />
             <div className="absolute inset-0 bg-[#F4F2F0] mix-blend-multiply" />
           </div>

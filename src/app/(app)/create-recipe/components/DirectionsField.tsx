@@ -37,7 +37,7 @@ export function DirectionsField({
       <button
         type="button"
         onClick={addNewStep}
-        className="mt-2 text-orange-600 hover:underline"
+        className="mt-2 text-emerald-600 hover:underline"
       >
         Add Step
       </button>
