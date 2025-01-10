@@ -11,30 +11,6 @@ export const Media: CollectionConfig = {
       name: "alt",
       type: "text",
     },
-    {
-      name: "webp",
-      type: "text",
-      admin: {
-        readOnly: true,
-      },
-    },
-    {
-      name: "webpResized",
-      type: "array",
-      fields: [
-        {
-          name: "size",
-          type: "text",
-        },
-        {
-          name: "url",
-          type: "text",
-        },
-      ],
-      admin: {
-        readOnly: true,
-      },
-    },
   ],
   upload: true,
 };
