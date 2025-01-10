@@ -17,7 +17,7 @@ export default async function Recipes() {
   const recipes = result.docs as Recipe[];
 
   return (
-    <div className="p-3 pt-6 min-w-screen-xl w-full flex flex-col gap-4 ml-auto mr-auto">
+    <div className="pt-6 max-w-screen-lg w-full flex flex-col gap-4 ml-auto mr-auto px-3 sm:px-0">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <ul
           role="list"
