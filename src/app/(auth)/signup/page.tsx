@@ -5,8 +5,8 @@ export default function signUp() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[#31572c]">
-          Become a BiteClub Member
+        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-emerald-600">
+          Join BiteClub
         </h1>
       </div>
 
@@ -56,7 +56,7 @@ export default function signUp() {
             <button
               type="submit"
               formAction={signup}
-              className="flex w-full justify-center rounded-md bg-[#132a13] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-[#31572c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Create free account
             </button>
@@ -67,9 +67,9 @@ export default function signUp() {
           already a member?{' '}
           <Link
             href="/login"
-            className="font-semibold text-[#4f772d] hover:text-[#132a13]"
+            className="font-semibold text-emerald-600 hover:text-emerald-700"
           >
-            Create a free account
+            Log in to your account
           </Link>
         </p>
       </div>
