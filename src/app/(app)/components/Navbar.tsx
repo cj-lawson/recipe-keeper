@@ -107,7 +107,7 @@ export default async function Navbar() {
               <Link href="/login" className="font-semibold text-sm">
                 Login
               </Link>
-              <button className="bg-orange-600 text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-orange-500">
+              <button className="bg-emerald-600 text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-emerald-500">
                 <Link href="/signup">Get Started</Link>
               </button>
             </div>
