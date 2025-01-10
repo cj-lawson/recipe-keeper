@@ -1,3 +1,5 @@
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+
 interface DirectionsFieldProps {
   directions: { instruction: string }[];
   setDirections: React.Dispatch<
@@ -37,8 +39,9 @@ export function DirectionsField({
       <button
         type="button"
         onClick={addNewStep}
-        className="mt-2 text-emerald-600 hover:underline"
+        className="mt-4 text-emerald-700 hover:text-emerald-500 flex items-center font-semibold gap-1"
       >
+        <PlusCircleIcon className="w-8" />
         Add Step
       </button>
     </div>

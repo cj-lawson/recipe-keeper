@@ -77,7 +77,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <ImageUploadField
         label="Cover Photo"
         id="mainImage"

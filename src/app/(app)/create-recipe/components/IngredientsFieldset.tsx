@@ -1,3 +1,5 @@
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+
 export function IngredientsFieldset({
   ingredients,
   setIngredients,
@@ -116,8 +118,9 @@ export function IngredientsFieldset({
             { amount: '', unit: 'custom', customUnit: '', ingredient: '' },
           ])
         }
-        className="mt-2 text-emerald-600 hover:underline"
+        className="mt-4 text-emerald-700 hover:text-emerald-500 flex items-center font-semibold gap-1"
       >
+        <PlusCircleIcon className="w-8" />
         Add Ingredient
       </button>
     </div>
