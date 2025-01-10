@@ -51,48 +51,51 @@ export function ImageUploadField({
 
   return (
     <div className="col-span-full">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-900">
+      {/* <label htmlFor={id} className="block text-sm font-medium text-gray-900">
         {label}
-      </label>
+      </label> */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className={`mt-2 flex justify-center rounded-lg border ${
-          dragging ? 'border-orange-500 bg-orange-50' : 'border-gray-900/25'
-        } px-6 py-10`}
+        className={`mt-2 justify-center rounded-lg border min-h-[250px] items-center relative ${
+          dragging
+            ? 'border-orange-500 bg-orange-50'
+            : 'border-gray-900/25 border-dashed'
+        }`}
       >
-        <div className="text-center">
+        <div className="relative text-center h-full">
           {preview ? (
             <img
               src={preview}
               alt="Preview"
-              className="mx-auto h-32 w-32 object-cover rounded-md"
+              className="object-cover max-h-[300px] rounded-md w-full"
             />
           ) : (
-            <PhotoIcon
-              aria-hidden="true"
-              className="mx-auto h-12 w-12 text-gray-300"
-            />
+            <>
+              <div className="flex flex-col text-sm text-gray-600 mt-12">
+                <PhotoIcon
+                  aria-hidden="true"
+                  className="mx-auto h-16 w-16 text-gray-300 mb-4"
+                />
+                <label
+                  htmlFor="file-upload"
+                  className="relative cursor-pointer rounded-md font-semibold text-orange-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-600 focus-within:ring-offset-2 hover:text-orange-500"
+                >
+                  <span>Upload Cover Photo</span>
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    className="sr-only"
+                    accept="image/*" // Restrict to image files
+                    onChange={handleFileInputChange}
+                  />
+                </label>
+              </div>
+              <p className="text-xs text-gray-600">PNG, JPG, GIF up to 2MB</p>
+            </>
           )}
-          <div className="mt-4 flex text-sm text-gray-600">
-            <label
-              htmlFor="file-upload"
-              className="relative cursor-pointer rounded-md bg-white font-semibold text-orange-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-600 focus-within:ring-offset-2 hover:text-orange-500"
-            >
-              <span>Upload a file</span>
-              <input
-                id="file-upload"
-                name="file-upload"
-                type="file"
-                className="sr-only"
-                accept="image/*" // Restrict to image files
-                onChange={handleFileInputChange}
-              />
-            </label>
-            <p className="pl-1">or drag and drop</p>
-          </div>
-          <p className="text-xs text-gray-600">PNG, JPG, GIF up to 10MB</p>
         </div>
       </div>
     </div>
