@@ -114,7 +114,7 @@ export default async function Recipe({ params }: { params: Params }) {
               </div>
             </div>
           </section>
-          <section className="mx-auto max-w-[760px]">
+          <section className="mx-auto max-w-[760px] w-full">
             <div className="md:flex md:flex-col md:justify-between gap-12">
               <div className="md:basis-1/2">
                 <h2 className="text-xl font-semibold mb-2">Chef's notes</h2>

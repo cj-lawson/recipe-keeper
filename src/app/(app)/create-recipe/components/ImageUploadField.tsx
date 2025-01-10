@@ -60,7 +60,7 @@ export function ImageUploadField({
         onDragLeave={handleDragLeave}
         className={`mt-2 justify-center rounded-lg border min-h-[250px] items-center relative ${
           dragging
-            ? 'border-orange-500 bg-orange-50'
+            ? 'border-emerald-500 bg-emerald-50'
             : 'border-gray-900/25 border-dashed'
         }`}
       >
@@ -80,7 +80,7 @@ export function ImageUploadField({
                 />
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer rounded-md font-semibold text-orange-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-orange-600 focus-within:ring-offset-2 hover:text-orange-500"
+                  className="relative cursor-pointer rounded-md font-semibold text-emerald-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-emerald-600 focus-within:ring-offset-2 hover:text-emerald-500"
                 >
                   <span>Upload Cover Photo</span>
                   <input

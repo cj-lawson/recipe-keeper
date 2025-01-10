@@ -112,7 +112,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
         onChange={(e) => setFormData({ ...formData, servings: e.target.value })}
       />
       <SelectField
-        label="Cuisine"
+        label="Cuisine (optional)"
         id="cuisine"
         value={formData.cuisine}
         options={[
@@ -148,7 +148,7 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700"
+        className="px-4 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600"
       >
         {isPending ? 'Submitting...' : 'Create Recipe'}
       </button>

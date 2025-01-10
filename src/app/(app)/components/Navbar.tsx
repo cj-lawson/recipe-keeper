@@ -17,7 +17,7 @@ export default async function Navbar() {
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <Link className="mr-6 flex items-center space-x-2" href="/">
-            <span className="font-bold text-orange-600 text-xl">BiteClub</span>
+            <span className="font-bold text-emerald-600 text-xl">BiteClub</span>
           </Link>
           <Link href="/recipes" className="font-semibold text-sm">
             Recipes
