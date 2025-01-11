@@ -41,7 +41,7 @@ export function DirectionsField({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700">
+      <label className="block text-sm font-medium text-gray-700 mb-4">
         Directions
       </label>
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -50,7 +50,7 @@ export function DirectionsField({
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="space-y-2"
+              className="space-y-6"
             >
               {directions.map((direction, index) => (
                 <Draggable
@@ -63,8 +63,13 @@ export function DirectionsField({
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
-                      className="flex gap-4 bg-white p-2 rounded border items-center"
+                      className="flex gap-4 rounded items-center"
                     >
+                      <img
+                        alt="People working on laptops"
+                        src="/drag-icon.svg"
+                        className=""
+                      />
                       <textarea
                         placeholder={`Step ${index + 1}`}
                         value={direction.instruction}
@@ -76,7 +81,7 @@ export function DirectionsField({
                       <button
                         type="button"
                         onClick={() => removeStep(index)}
-                        className="text-rose-700 cursor-pointer"
+                        className="text-slate-600 cursor-pointer"
                       >
                         <XCircleIcon className="w-6" />
                       </button>
