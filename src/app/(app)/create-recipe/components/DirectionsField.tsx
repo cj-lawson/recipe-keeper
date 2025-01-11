@@ -1,4 +1,4 @@
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { PlusCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 interface DirectionsFieldProps {
   directions: { instruction: string }[];
@@ -21,6 +21,13 @@ export function DirectionsField({
     setDirections([...directions, { instruction: '' }]);
   };
 
+  const removeStep = (index: number) => {
+    const newDirections = [...directions];
+    newDirections.splice(index, 1);
+    setDirections(newDirections);
+  };
+
+  console.log(directions);
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700">
@@ -34,6 +41,13 @@ export function DirectionsField({
             onChange={(e) => handleDirectionChange(index, e.target.value)}
             className="w-full px-2 py-1 border border-gray-300 rounded"
           />
+          <button
+            type="button"
+            onClick={(e) => removeStep(index)}
+            className="text-rose-700 cursor-pointer"
+          >
+            <XCircleIcon className="w-6" />
+          </button>
         </div>
       ))}
       <button
@@ -41,7 +55,7 @@ export function DirectionsField({
         onClick={addNewStep}
         className="mt-4 text-emerald-700 hover:text-emerald-500 flex items-center font-semibold gap-1"
       >
-        <PlusCircleIcon className="w-8" />
+        <PlusCircleIcon className="w-8 hover:cursor-pointer" />
         Add Step
       </button>
     </div>
