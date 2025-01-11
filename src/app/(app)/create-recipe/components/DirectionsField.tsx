@@ -1,3 +1,5 @@
+import React from 'react';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { PlusCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 
 interface DirectionsFieldProps {
@@ -27,29 +29,66 @@ export function DirectionsField({
     setDirections(newDirections);
   };
 
-  console.log(directions);
+  const handleDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const reorderedDirections = Array.from(directions);
+    const [moved] = reorderedDirections.splice(result.source.index, 1);
+    reorderedDirections.splice(result.destination.index, 0, moved);
+
+    setDirections(reorderedDirections);
+  };
+
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700">
         Directions
       </label>
-      {directions.map((direction, index) => (
-        <div key={index} className="flex gap-4 mt-2">
-          <textarea
-            placeholder={`Step ${index + 1}`}
-            value={direction.instruction}
-            onChange={(e) => handleDirectionChange(index, e.target.value)}
-            className="w-full px-2 py-1 border border-gray-300 rounded"
-          />
-          <button
-            type="button"
-            onClick={(e) => removeStep(index)}
-            className="text-rose-700 cursor-pointer"
-          >
-            <XCircleIcon className="w-6" />
-          </button>
-        </div>
-      ))}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="directions">
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="space-y-2"
+            >
+              {directions.map((direction, index) => (
+                <Draggable
+                  key={index}
+                  draggableId={`step-${index}`}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className="flex gap-4 bg-white p-2 rounded border items-center"
+                    >
+                      <textarea
+                        placeholder={`Step ${index + 1}`}
+                        value={direction.instruction}
+                        onChange={(e) =>
+                          handleDirectionChange(index, e.target.value)
+                        }
+                        className="w-full px-2 py-1 border border-gray-300 rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeStep(index)}
+                        className="text-rose-700 cursor-pointer"
+                      >
+                        <XCircleIcon className="w-6" />
+                      </button>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       <button
         type="button"
         onClick={addNewStep}
