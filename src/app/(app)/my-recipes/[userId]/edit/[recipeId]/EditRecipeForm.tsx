@@ -47,7 +47,6 @@ export default function EditRecipeForm({
   const handleImageChange = (file: File | null) => {
     setFormData((prev) => {
       const updatedFormData = { ...prev, mainImage: file };
-      console.log(updatedFormData); // Log the updated state
       return updatedFormData;
     });
   };

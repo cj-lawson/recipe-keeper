@@ -58,8 +58,6 @@ export default async function Recipe({ params }: { params: Params }) {
     isSaved = savedRecipes.includes(recipe.id); // Check if recipe ID is saved
   }
 
-  console.log(user?.id);
-
   return (
     <>
       <div className="min-h-screen min-w-screen-lg px-3 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">

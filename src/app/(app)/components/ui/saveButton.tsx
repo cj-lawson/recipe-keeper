@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import { BookmarkIcon, CheckIcon } from "@heroicons/react/24/outline";
-import { saveRecipe } from "../../actions/index";
+import { useState, useTransition } from 'react';
+import { BookmarkIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { saveRecipe } from '../../actions/index';
 
 export default function SaveButton({
   recipeId,
@@ -18,12 +18,12 @@ export default function SaveButton({
 
   const handleSave = async () => {
     if (!userId) {
-      alert("You must be logged in to save recipes.");
+      alert('You must be logged in to save recipes.');
       return;
     }
 
     if (isSaved) {
-      console.log("Recipe is already saved.");
+      alert('Recipe is already saved.');
       return; // Prevent duplicate saves
     }
 
@@ -32,8 +32,8 @@ export default function SaveButton({
         await saveRecipe({ recipeId });
         setIsSaved(true); // Update state to reflect saved status
       } catch (error) {
-        console.error("Failed to save recipe:", error);
-        alert("Failed to save the recipe. Please try again.");
+        console.error('Failed to save recipe:', error);
+        alert('Failed to save the recipe. Please try again.');
       }
     });
   };
@@ -49,7 +49,7 @@ export default function SaveButton({
       ) : (
         <BookmarkIcon className="w-5" /> // Show BookmarkIcon otherwise
       )}
-      {isPending ? "Saving..." : isSaved ? "Saved" : "Save"}
+      {isPending ? 'Saving...' : isSaved ? 'Saved' : 'Save'}
     </button>
   );
 }

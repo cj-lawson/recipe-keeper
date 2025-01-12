@@ -36,7 +36,6 @@ export default async function MyRecipesPage({ params }: { params: Params }) {
 
   const savedRecipes = (profile.docs[0].savedRecipes as Recipe[]) || [];
   const createdRecipes = (profile.docs[0].createdRecipes as Recipe[]) || [];
-  console.log(profile.docs[0]);
 
   return (
     <MyRecipesDashboard
