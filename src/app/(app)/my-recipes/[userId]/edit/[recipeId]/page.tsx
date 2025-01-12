@@ -3,11 +3,9 @@ import config from '@payload-config';
 
 import EditRecipeForm from './EditRecipeForm';
 
-export default async function EditRecipePage({
-  params,
-}: {
-  params: { userId: string; recipeId: string };
-}) {
+type tParams = Promise<{ userId: string; recipeId: string }>;
+
+export default async function EditRecipePage({ params }: { params: tParams }) {
   const { recipeId } = await params;
   const { userId } = await params;
 
