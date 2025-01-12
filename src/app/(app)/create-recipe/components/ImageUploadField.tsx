@@ -5,14 +5,16 @@ interface ImageUploadFieldProps {
   label: string;
   id: string;
   onChange: (file: File | null) => void;
+  existingImage?: string;
 }
 
 export function ImageUploadField({
   label,
   id,
   onChange,
+  existingImage,
 }: ImageUploadFieldProps) {
-  const [preview, setPreview] = useState<string | null>(null);
+  const [preview, setPreview] = useState<string | null>(existingImage || null); // Initialize with existingImage
   const [dragging, setDragging] = useState(false);
 
   const handleFileChange = (file: File | null) => {
@@ -51,9 +53,6 @@ export function ImageUploadField({
 
   return (
     <div className="col-span-full">
-      {/* <label htmlFor={id} className="block text-sm font-medium text-gray-900">
-        {label}
-      </label> */}
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}

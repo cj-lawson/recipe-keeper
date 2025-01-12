@@ -1,7 +1,13 @@
 import { useState } from "react";
 
-export function useDirections() {
-    const [directions, setDirections] = useState([{ instruction: ""}]);
+export function useDirections(
+    recipe?: { directions?: { instruction: string }[] },
+) {
+    const [directions, setDirections] = useState<{ instruction: string }[]>(
+        recipe?.directions && recipe.directions.length > 0
+            ? recipe.directions
+            : [{ instruction: "" }],
+    );
 
     const handleDirectionChange = (index: number, value: string) => {
         const updatedDirections = [...directions];
@@ -9,5 +15,5 @@ export function useDirections() {
         setDirections(updatedDirections);
     };
 
-    return { directions, setDirections, handleDirectionChange}
+    return { directions, setDirections, handleDirectionChange };
 }

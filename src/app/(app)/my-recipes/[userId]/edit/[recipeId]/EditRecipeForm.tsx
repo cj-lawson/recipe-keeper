@@ -41,8 +41,8 @@ export default function EditRecipeForm({
     directions: recipe.directions || [],
   });
 
-  const { ingredients, setIngredients } = useIngredients();
-  const { directions, setDirections } = useDirections();
+  const { ingredients, setIngredients } = useIngredients(recipe);
+  const { directions, setDirections } = useDirections(recipe);
 
   const handleImageChange = (file: File | null) => {
     setFormData((prev) => {
@@ -94,6 +94,11 @@ export default function EditRecipeForm({
         label="Cover Photo"
         id="mainImage"
         onChange={handleImageChange}
+        existingImage={
+          recipe.mainImage && typeof recipe.mainImage !== 'string'
+            ? recipe.mainImage.url
+            : undefined
+        }
       />
       <InputField
         label="Recipe Title"

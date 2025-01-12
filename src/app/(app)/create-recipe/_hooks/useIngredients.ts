@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useIngredients() {
+export function useIngredients(recipe: { ingredients?: any[] }) {
   const [ingredients, setIngredients] = useState<
     {
       amount: string;
@@ -18,7 +18,11 @@ export function useIngredients() {
       customUnit?: string;
       ingredient: string;
     }[]
-  >([{ amount: "", unit: "cups", customUnit: "", ingredient: "" }]);
+  >(() =>
+    recipe.ingredients && recipe.ingredients.length > 0
+      ? recipe.ingredients
+      : [{ amount: "", unit: "cups", customUnit: "", ingredient: "" }]
+  );
 
   const handleIngredientChange = (
     index: number,
