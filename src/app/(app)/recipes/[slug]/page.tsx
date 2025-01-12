@@ -65,7 +65,7 @@ export default async function Recipe({ params }: { params: Params }) {
           {/* Edit bar */}
           {typeof recipe.createdBy !== 'string' &&
             user?.id === recipe.createdBy?.id && (
-              <div className="flex items-center justify-center bg-white shadow-md border border-slate-200 rounded-full gap-6 fixed bottom-4 px-4 py-3 mx-auto max-w-[400px] left-2 right-2">
+              <div className="z-50 flex items-center justify-center bg-white shadow-md border border-slate-200 rounded-full gap-6 fixed bottom-4 px-4 py-3 mx-auto max-w-[400px] left-2 right-2">
                 <Link
                   href={`/my-recipes/${user?.id}/edit/${recipe.id}`}
                   className="flex items-center gap-2 bg-[#F8F8F8] rounded-full px-3 py-3 text-gray-500 hover:text-gray-600 font-medium border border-slate-100 hover:border-slate-200 shadow-sm"
@@ -74,20 +74,6 @@ export default async function Recipe({ params }: { params: Params }) {
                   Edit Recipe
                 </Link>
                 <DeleteRecipeAction userId={user.id} recipeId={recipe.id} />
-                {/* <button
-                  onClick={async () => {
-                    if (
-                      confirm('Are you sure you want to delete this recipe?')
-                    ) {
-                      await deleteRecipe(recipe.id);
-                      window.location.href = `/my-recipes/${user?.id}`; // Redirect to user recipes after deletion
-                    }
-                  }}
-                  className="flex items-center gap-2 bg-[#F8F8F8] rounded-full px-3 py-3 text-rose-500 hover:text-rose-600 font-medium border border-slate-100 hover:border-rose-200 shadow-sm"
-                >
-                  <TrashIcon className="w-6 text-rose-500 hover:text-rose-600" />
-                  Delete Recipe
-                </button> */}
               </div>
             )}
           <section className="w-full flex flex-col pt-4 gap-12 ml-auto mr-auto max-w-[760px]">
