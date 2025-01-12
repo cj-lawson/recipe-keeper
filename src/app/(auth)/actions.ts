@@ -49,7 +49,6 @@ export async function signup(formData: FormData) {
 
   if (session?.user) {
     const userId = session.user.id;
-    // console.log('User created with ID:', userId); Debugging log
     redirect(`/my-recipes/${userId}`);
   } else {
     redirect("/error");
