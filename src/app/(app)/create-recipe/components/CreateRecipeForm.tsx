@@ -34,8 +34,8 @@ export default function CreateRecipeForm({ userId }: { userId: string }) {
     directions: [],
   });
 
-  const { ingredients, setIngredients } = useIngredients();
-  const { directions, setDirections } = useDirections();
+  const { ingredients, setIngredients } = useIngredients({ ingredients: [] });
+  const { directions, setDirections } = useDirections({ directions: [] });
 
   const handleImageChange = (file: File | null) => {
     setFormData((prev) => {
