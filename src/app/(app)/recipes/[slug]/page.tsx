@@ -3,9 +3,15 @@ import { getPayload } from 'payload';
 import { notFound } from 'next/navigation';
 import { createClient } from '../../../../../utils/supabase/server';
 import type { Recipe } from '../../../../payload-types';
-import { ClockIcon } from '@heroicons/react/24/outline';
-import { UserIcon } from '@heroicons/react/24/outline';
+import {
+  UserIcon,
+  ClockIcon,
+  PencilSquareIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline';
 import SaveButton from '../../components/ui/saveButton';
+import Link from 'next/link';
+import DeleteRecipeAction from './DeleteRecipeAction';
 
 type Params = Promise<{ slug: string[] }>;
 
@@ -52,10 +58,40 @@ export default async function Recipe({ params }: { params: Params }) {
     isSaved = savedRecipes.includes(recipe.id); // Check if recipe ID is saved
   }
 
+  console.log(user?.id);
+
   return (
     <>
       <div className="min-h-screen min-w-screen-lg px-3 pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+          {/* Edit bar */}
+          {typeof recipe.createdBy !== 'string' &&
+            user?.id === recipe.createdBy?.id && (
+              <div className="flex items-center justify-center bg-white shadow-md border border-slate-200 rounded-full gap-6 fixed bottom-4 px-4 py-3 mx-auto max-w-[400px] left-2 right-2">
+                <Link
+                  href={`/my-recipes/${user?.id}/edit/${recipe.id}`}
+                  className="flex items-center gap-2 bg-[#F8F8F8] rounded-full px-3 py-3 text-gray-500 hover:text-gray-600 font-medium border border-slate-100 hover:border-slate-200 shadow-sm"
+                >
+                  <PencilSquareIcon className="w-6 text-gray-500 hover:text-gray-600" />
+                  Edit Recipe
+                </Link>
+                <DeleteRecipeAction userId={user.id} recipeId={recipe.id} />
+                {/* <button
+                  onClick={async () => {
+                    if (
+                      confirm('Are you sure you want to delete this recipe?')
+                    ) {
+                      await deleteRecipe(recipe.id);
+                      window.location.href = `/my-recipes/${user?.id}`; // Redirect to user recipes after deletion
+                    }
+                  }}
+                  className="flex items-center gap-2 bg-[#F8F8F8] rounded-full px-3 py-3 text-rose-500 hover:text-rose-600 font-medium border border-slate-100 hover:border-rose-200 shadow-sm"
+                >
+                  <TrashIcon className="w-6 text-rose-500 hover:text-rose-600" />
+                  Delete Recipe
+                </button> */}
+              </div>
+            )}
           <section className="w-full flex flex-col pt-4 gap-12 ml-auto mr-auto max-w-[760px]">
             <div className="basis-1/2 space-y-8 my-auto">
               <div className="space-y-4">

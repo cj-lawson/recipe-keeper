@@ -1,11 +1,11 @@
-// utils/submitRecipe.ts
-import { createRecipe } from "../src/app/(app)/actions/index";
+import { createRecipe, updateRecipe } from "../src/app/(app)/actions/index";
 
 export async function submitRecipe({
   formData,
   ingredients,
   directions,
   userId,
+  recipeId, // Optional for distinguishing between create and edit
 }: {
   formData: {
     mainImage: File | null;
@@ -22,11 +22,9 @@ export async function submitRecipe({
     instruction: string;
   }[];
   userId: string;
+  recipeId?: string; // Add this field to determine if editing
 }) {
-  // Pass the raw File object to `createRecipe`
-  console.log('From submitRecipe Util')
-  console.log(formData.mainImage)
-  await createRecipe({
+  const payload = {
     title: formData.title,
     description: formData.description,
     cookTime: Number(formData.cookTime),
@@ -48,6 +46,15 @@ export async function submitRecipe({
     })),
     createdBy: userId,
     mainImage: formData.mainImage, // Pass the File object directly
-  });
-}
+  };
 
+  if (recipeId) {
+    // Edit an existing recipe
+    console.log("Editing Recipe:", recipeId);
+    await updateRecipe({ recipeId, data: payload });
+  } else {
+    // Create a new recipe
+    console.log("Creating New Recipe");
+    await createRecipe(payload);
+  }
+}

@@ -23,7 +23,7 @@ export function useIngredients() {
   const handleIngredientChange = (
     index: number,
     field: "amount" | "unit" | "customUnit" | "ingredient",
-    value: string
+    value: string,
   ) => {
     const updatedIngredients = [...ingredients];
 
