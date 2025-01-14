@@ -2,8 +2,10 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { parseWithZod } from "@conform-to/zod";
 
 import { createClient } from "../../../utils/supabase/server";
+import { signUpSchema } from "../../../utils/zodSchemas";
 
 // Login
 export async function login(formData: FormData) {
@@ -21,43 +23,46 @@ export async function login(formData: FormData) {
   }
   const userId = session.user.id;
 
-  // if (session?.user) {
-  //   const userId = session.user.id
-  //   redirect(`/profile/${userId}`)
-  // } else {
-  //   redirect('/error')
-  // }
-
   revalidatePath("/", "layout");
   redirect(`/my-recipes/${userId}`);
 }
 
 // Signup
-export async function signup(formData: FormData) {
+export async function signup(prevState: unknown, formData: FormData) {
   const supabase = await createClient();
+
+  const submission = parseWithZod(formData, {
+    schema: signUpSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
 
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
+  // if (!data.email || !data.password) {
+  //   redirect("/error?message=Email and password are required");
+  // }
+
   const { error, data: session } = await supabase.auth.signUp(data);
 
-  if (error) {
-    redirect("/error");
-  }
+  // if (error) {
+  //   redirect(`/error?message=${encodeURIComponent(error.message)}`);
+  // }
 
   if (session?.user) {
     const userId = session.user.id;
     redirect(`/my-recipes/${userId}`);
   } else {
-    redirect("/error");
+    redirect("/error?message=an uknown error has occured");
   }
-
-  // revalidatePath('/', 'layout')
-  // redirect('/')
 }
 
+// Sign out
 export async function signOut() {
   const supabase = createClient();
   (await supabase).auth.signOut();
