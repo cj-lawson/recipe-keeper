@@ -1,14 +1,17 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { signup } from '../actions';
 import Link from 'next/link';
 import { useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { signUpSchema } from '@utils/zodSchemas';
 
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+
 export default function signUp() {
   const [lastResult, action] = useActionState(signup, undefined);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [form, fields] = useForm({
     lastResult,
@@ -65,19 +68,30 @@ export default function signUp() {
                 Password
               </label>
             </div>
-            <div className="mt-2">
+            <div className="relative mt-2">
               <input
                 key={fields.password.key}
                 name={fields.password.name}
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="at least 6 characters"
                 required
                 autoComplete="current-password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
-              <p className="text-red-500 mt-2">{fields.password.errors}</p>
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="w-4" />
+                ) : (
+                  <EyeIcon className="w-4" />
+                )}
+              </button>
             </div>
+            <p className="text-red-500 mt-2">{fields.password.errors}</p>
           </div>
 
           <div>
