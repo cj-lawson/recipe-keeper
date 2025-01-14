@@ -44,15 +44,7 @@ export async function signup(prevState: unknown, formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  // if (!data.email || !data.password) {
-  //   redirect("/error?message=Email and password are required");
-  // }
-
   const { error, data: session } = await supabase.auth.signUp(data);
-
-  // if (error) {
-  //   redirect(`/error?message=${encodeURIComponent(error.message)}`);
-  // }
 
   if (session?.user) {
     const userId = session.user.id;
