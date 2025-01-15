@@ -34,7 +34,10 @@ export default async function Navbar() {
               </Link>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <MenuButton className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-[#FDFDFD] hover:opacity-90 border border-gray-200">
+                  <MenuButton
+                    aria-label="profile-button"
+                    className="relative inline-flex w-full justify-center items-center gap-x-1.5 rounded-full pr-3 pl-1 py-1 text-sm font-semibold text-gray-900 bg-[#FDFDFD] hover:opacity-90 border border-gray-200"
+                  >
                     <UserCircleIcon className="w-9 text-gray-400" />
                     <ChevronDownIcon
                       aria-hidden="true"
