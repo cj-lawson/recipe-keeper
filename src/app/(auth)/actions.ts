@@ -24,7 +24,7 @@ export async function login(formData: FormData) {
   const userId = session.user.id;
 
   revalidatePath("/", "layout");
-  redirect(`/my-recipes/${userId}`);
+  redirect(`/dashboard/${userId}`);
 }
 
 // Signup
@@ -48,7 +48,7 @@ export async function signup(prevState: unknown, formData: FormData) {
 
   if (session?.user) {
     const userId = session.user.id;
-    redirect(`/my-recipes/${userId}`);
+    redirect(`/dashboard/${userId}`);
   } else {
     redirect("/error?message=an uknown error has occured");
   }
