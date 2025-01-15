@@ -86,7 +86,7 @@ export async function sendResetPasswordEmail(prev: any, formData: FormData) {
   }
 
   return {
-    success: "Please check your email",
+    success: `We sent a password reset link to ${data.email}`,
     error: "",
   };
 }
