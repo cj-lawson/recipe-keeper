@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 export default async function Login() {
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-12">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-emerald-600">
+        <h1 className="text-center text-2xl/9 font-bold tracking-tight text-emerald-600">
           Log into BiteClub
         </h1>
       </div>

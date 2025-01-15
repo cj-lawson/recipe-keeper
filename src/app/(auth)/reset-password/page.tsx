@@ -32,43 +32,51 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4">
-      <h1 className="text-2xl font-semibold mb-4">Reset Password</h1>
-      <form
-        onSubmit={handlePasswordReset}
-        className="space-y-4 w-full max-w-sm"
-      >
-        <label htmlFor="password" className="block text-sm font-medium">
-          New Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded"
-        />
-        <label htmlFor="confirmPassword" className="block text-sm font-medium">
-          Confirm New Password
-        </label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-          className="w-full px-4 py-2 border rounded"
-        />
-        <button
-          type="submit"
-          className="w-full bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-12">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
+        <h1 className="text-2xl font-semibold mb-4">Reset Password</h1>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form
+          onSubmit={handlePasswordReset}
+          className="space-y-4 w-full max-w-sm"
         >
-          Reset Password
-        </button>
-      </form>
-      {error && <p className="mt-4 text-red-500">{error}</p>}
-      {success && <p className="mt-4 text-green-500">{success}</p>}
+          <label htmlFor="password" className="block text-sm font-medium">
+            New Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-4 py-2 border rounded"
+          />
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium"
+          >
+            Confirm New Password
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="w-full px-4 py-2 border rounded"
+          />
+          <button
+            type="submit"
+            className="w-full bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
+          >
+            Reset Password
+          </button>
+        </form>
+        {error && <p className="mt-4 text-red-500">{error}</p>}
+        {success && <p className="mt-4 text-green-500">{success}</p>}
+      </div>
     </div>
   );
 }

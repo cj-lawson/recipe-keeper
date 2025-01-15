@@ -18,7 +18,7 @@ export default function ForgotPassword() {
   console.log(state);
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-12">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm flex flex-col items-center">
         <h1 className="font-semibold text-xl">Forgot password?</h1>
         <p>No worries, we'll send you email instructions</p>
