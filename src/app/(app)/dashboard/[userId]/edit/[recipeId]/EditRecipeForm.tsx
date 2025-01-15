@@ -85,7 +85,7 @@ export default function EditRecipeForm({
       alert('Failed to create the recipe. Please try again.');
     } finally {
       setIsPending(false);
-      window.location.href = `/my-recipes/${userId}`;
+      window.location.href = `/dashboard/${userId}`;
     }
   };
 

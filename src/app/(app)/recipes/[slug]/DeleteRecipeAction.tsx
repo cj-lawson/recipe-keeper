@@ -14,14 +14,14 @@ export default function RecipeActions({
   const handleDelete = async () => {
     if (confirm('Are you sure you want to delete this recipe?')) {
       await deleteRecipe(recipeId);
-      window.location.href = `/my-recipes/${userId}`; // Redirect to user recipes after deletion
+      window.location.href = `/dashboard/${userId}`; // Redirect to user recipes after deletion
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-white shadow-md border border-slate-200 rounded-full gap-6 fixed bottom-4 px-4 py-3 mx-auto max-w-[400px] left-2 right-2">
       <Link
-        href={`/my-recipes/${userId}/edit/${recipeId}`}
+        href={`/dashboard/${userId}/edit/${recipeId}`}
         className="flex items-center gap-2 bg-[#F8F8F8] rounded-full px-3 py-3 text-gray-500 hover:text-gray-600 font-medium border border-slate-100 hover:border-slate-200 shadow-sm"
       >
         <PencilSquareIcon className="w-6 text-gray-500 hover:text-gray-600" />
