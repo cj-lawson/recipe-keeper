@@ -1,7 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import { login } from '../actions';
 import Link from 'next/link';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 
-export default async function Login() {
+export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-12">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -48,15 +54,26 @@ export default async function Login() {
                 </Link>
               </div>
             </div>
-            <div className="mt-2">
+            <div className="relative mt-2">
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 required
                 autoComplete="current-password"
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+              >
+                {showPassword ? (
+                  <EyeSlashIcon className="w-4" />
+                ) : (
+                  <EyeIcon className="w-4" />
+                )}
+              </button>
             </div>
           </div>
 

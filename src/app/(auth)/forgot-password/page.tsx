@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { sendResetPasswordEmail } from '../actions';
 import { useActionState } from 'react';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 export default function ForgotPassword() {
   const [state, formAction, isPending] = useActionState(
@@ -55,9 +56,10 @@ export default function ForgotPassword() {
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             <Link
               href="/login"
-              className="font-semibold text-emerald-600 hover:text-emerald-700"
+              className="font-semibold text-emerald-600 hover:text-emerald-700 flex items-center justify-center gap-1"
             >
-              Back to log in
+              <ArrowLeftIcon className="w-4" />
+              Back to login
             </Link>
           </p>
         </form>
