@@ -72,7 +72,7 @@ export async function sendResetPasswordEmail(prev: any, formData: FormData) {
   const { error, data: session } = await supabase.auth.resetPasswordForEmail(
     data.email,
     {
-      redirectTo: "https://biteclub-app.vercel.app/reset-password",
+      redirectTo: "https://www.biteclub.com.co/reset-password",
     },
   );
 
