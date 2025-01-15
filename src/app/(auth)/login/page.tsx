@@ -40,12 +40,12 @@ export default async function Login() {
                 Password
               </label>
               <div className="text-sm">
-                <a
-                  href="#"
+                <Link
+                  href="/reset-password"
                   className="font-medium text-emerald-600 hover:text-emerald-700"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
             </div>
             <div className="mt-2">
