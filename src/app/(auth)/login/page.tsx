@@ -41,7 +41,7 @@ export default async function Login() {
               </label>
               <div className="text-sm">
                 <Link
-                  href="/reset-password"
+                  href="/forgot-password"
                   className="font-medium text-emerald-600 hover:text-emerald-700"
                 >
                   Forgot password?
