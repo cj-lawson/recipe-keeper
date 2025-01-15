@@ -60,3 +60,56 @@ export async function signOut() {
   (await supabase).auth.signOut();
   redirect("/login");
 }
+
+// Reset Email
+export async function sendResetPasswordEmail(prev: any, formData: FormData) {
+  const supabase = await createClient();
+
+  const data = {
+    email: formData.get("email") as string,
+  };
+
+  const { error, data: session } = await supabase.auth.resetPasswordForEmail(
+    data.email,
+    {
+      redirectTo: "https://biteclub-app.vercel.app/reset-password",
+    },
+  );
+
+  if (error) {
+    console.log("error", error);
+
+    return {
+      success: "",
+      error: error.message,
+    };
+  }
+
+  return {
+    success: "Please check your email",
+    error: "",
+  };
+}
+
+// update password
+export async function updatePassword(prev: any, formData: FormData) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.auth.updateUser({
+    password: formData.get("password") as string,
+  });
+
+  if (error) {
+    console.log("error", error);
+
+    return {
+      success: "",
+      error: error.message,
+    };
+  }
+
+  return {
+    success: "password updated",
+    error: "",
+  };
+}
