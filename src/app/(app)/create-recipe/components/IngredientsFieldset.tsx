@@ -181,7 +181,7 @@ export function IngredientsFieldset({
             { amount: '', unit: 'cups', customUnit: '', ingredient: '' },
           ])
         }
-        className="mt-4 text-emerald-700 hover:text-emerald-500 flex items-center font-semibold gap-1"
+        className="mt-4 text-green-700 hover:text-green-500 flex items-center font-semibold gap-1"
       >
         <PlusCircleIcon className="w-8" />
         Add Ingredient

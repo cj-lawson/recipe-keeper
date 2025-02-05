@@ -27,7 +27,7 @@ export default function signUp() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-emerald-600">
+        <h1 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-green-600">
           Join BiteClub
         </h1>
       </div>
@@ -57,6 +57,7 @@ export default function signUp() {
                 className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
               />
             </div>
+            <p className="text-red-500 mt-2">{fields.email.errors}</p>
           </div>
 
           <div>
@@ -97,7 +98,7 @@ export default function signUp() {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Create free account
             </button>
@@ -108,7 +109,7 @@ export default function signUp() {
           already a member?{' '}
           <Link
             href="/login"
-            className="font-semibold text-emerald-600 hover:text-emerald-700"
+            className="font-semibold text-green-600 hover:text-green-700"
           >
             Log in to your account
           </Link>

@@ -166,7 +166,7 @@ export default function EditRecipeForm({
       <button
         type="submit"
         disabled={isPending}
-        className="px-4 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600"
+        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
       >
         {isPending ? 'Saving...' : 'Save Changes'}
       </button>

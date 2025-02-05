@@ -20,7 +20,7 @@ export default function MyRecipesDashboard({
   );
 
   const tabs = [
-    { name: 'My Recipes', key: 'all', recipes: combinedRecipes },
+    { name: 'All Recipes', key: 'all', recipes: combinedRecipes },
     { name: 'Saved Recipes', key: 'saved', recipes: savedRecipes },
     { name: 'Created Recipes', key: 'created', recipes: createdRecipes },
   ];

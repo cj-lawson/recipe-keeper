@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '../../../../../utils/supabase/server';
 import { getPayload } from 'payload';
 import config from '@payload-config';
-import MyRecipesDashboard from './components/MyRecipesDashboard';
+import Dashboard from './components/Dashboard';
 import type { Recipe } from '../../../../payload-types';
 
 type Params = Promise<{ userId: string }>;
@@ -38,9 +38,6 @@ export default async function MyRecipesPage({ params }: { params: Params }) {
   const createdRecipes = (profile.docs[0].createdRecipes as Recipe[]) || [];
 
   return (
-    <MyRecipesDashboard
-      savedRecipes={savedRecipes}
-      createdRecipes={createdRecipes}
-    />
+    <Dashboard savedRecipes={savedRecipes} createdRecipes={createdRecipes} />
   );
 }

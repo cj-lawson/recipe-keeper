@@ -69,7 +69,7 @@ export default function ResetPasswordPage() {
           />
           <button
             type="submit"
-            className="w-full bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
+            className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
           >
             Reset Password
           </button>
