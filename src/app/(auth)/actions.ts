@@ -5,11 +5,19 @@ import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
 
 import { createClient } from "../../../utils/supabase/server";
-import { signUpSchema } from "../../../utils/zodSchemas";
+import { logInSchema, signUpSchema } from "../../../utils/zodSchemas";
 
 // Login
-export async function login(formData: FormData) {
+export async function login(prevState: unknown, formData: FormData) {
   const supabase = await createClient();
+
+  const submission = parseWithZod(formData, {
+    schema: logInSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply(); // returns errors for Conform
+  }
 
   const data = {
     email: formData.get("email") as string,
@@ -19,12 +27,23 @@ export async function login(formData: FormData) {
   const { error, data: session } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
-    redirect("/error");
+    return submission.reply({
+      fieldErrors: {
+        email: ["Invalid email or password. Please try again."],
+      },
+    });
   }
-  const userId = session.user.id;
 
-  revalidatePath("/", "layout");
-  redirect(`/dashboard/${userId}`);
+  if (session?.user) {
+    const userId = session.user.id;
+    redirect(`/dashboard/${userId}`);
+  }
+
+  return submission.reply({
+    fieldErrors: {
+      email: ["Something went wrong. Please try again later."],
+    },
+  });
 }
 
 // Signup

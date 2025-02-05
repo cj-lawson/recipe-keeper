@@ -64,7 +64,7 @@ export default function ForgotPassword() {
                 className={`flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm ${
                   isPending
                     ? 'bg-gray-400 text-gray-300 cursor-not-allowed'
-                    : 'bg-emerald-600 text-white hover:bg-emerald-500'
+                    : 'bg-green-600 text-white hover:bg-green-500'
                 }`}
               >
                 {isPending ? 'Sending...' : 'Send email instructions'}
@@ -74,7 +74,7 @@ export default function ForgotPassword() {
           <p className="mt-10 text-center text-sm/6 text-gray-500">
             <Link
               href="/login"
-              className="font-semibold text-emerald-600 hover:text-emerald-700 flex items-center justify-center gap-1"
+              className="font-semibold text-green-600 hover:text-green-700 flex items-center justify-center gap-1"
             >
               <ArrowLeftIcon className="w-4" />
               Back to login

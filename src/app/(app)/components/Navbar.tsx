@@ -2,6 +2,7 @@ import { signOut } from '../../(auth)/actions';
 import { createClient } from '../../../../utils/supabase/server';
 import Link from 'next/link';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import Image from 'next/image';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 
@@ -17,11 +18,17 @@ export default async function Navbar() {
       <div className="container flex h-14 max-w-screen-lg items-center ml-auto mr-auto">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <Link className="mr-6 flex items-center space-x-2" href="/">
-            <span className="font-bold text-emerald-600 text-xl">BiteClub</span>
+            <Image
+              src="app-logo.svg"
+              width={144}
+              height={144}
+              alt="Biteclube logo mark"
+            />
+            {/* <span className="font-bold text-green-600 text-2xl">BiteClub</span> */}
           </Link>
-          <Link href="/recipes" className="font-semibold text-sm">
+          {/* <Link href="/recipes" className="font-semibold text-sm">
             Recipes
-          </Link>
+          </Link> */}
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
           {user !== null ? (
@@ -104,8 +111,8 @@ export default async function Navbar() {
               <Link href="/login" className="font-semibold text-sm">
                 Login
               </Link>
-              <button className="bg-emerald-600 text-white px-6 py-3 font-bold rounded-md text-sm hover:bg-emerald-500">
-                <Link href="/signup">Get Started</Link>
+              <button className="px-6 py-3 font-bold rounded-full text-sm bg-[#F9F4F2]">
+                <Link href="/signup">Sign up</Link>
               </button>
             </div>
           )}
