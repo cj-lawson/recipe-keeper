@@ -3,6 +3,7 @@ import { createClient } from '../../../../utils/supabase/server';
 import Link from 'next/link';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import Image from 'next/image';
+import logo from 'app-logo.svg';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { UserCircleIcon } from '@heroicons/react/24/solid';
 
@@ -19,7 +20,7 @@ export default async function Navbar() {
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <Link className="mr-6 flex items-center space-x-2" href="/">
             <Image
-              src="app-logo.svg"
+              src="/app-logo.svg"
               width={144}
               height={144}
               alt="Biteclube logo mark"
