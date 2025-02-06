@@ -21,8 +21,8 @@ export default async function Navbar() {
           <Link className="mr-6 flex items-center space-x-2" href="/">
             <Image
               src="/app-logo.svg"
-              width={144}
-              height={144}
+              width={116}
+              height={116}
               alt="Biteclube logo mark"
             />
             {/* <span className="font-bold text-green-600 text-2xl">BiteClub</span> */}
