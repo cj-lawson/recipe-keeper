@@ -14,7 +14,7 @@ export default function Home() {
           <Image
             width={900}
             height={358}
-            src="hero-image-main.svg"
+            src="app-shot.svg"
             alt="Biteclube logo mark"
           />
         </div>

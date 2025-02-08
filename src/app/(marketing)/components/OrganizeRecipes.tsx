@@ -23,7 +23,7 @@ export default function OrganizeRecipes() {
               <div className="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
                 <img
                   alt="Product screenshot"
-                  src="/feature-img.svg"
+                  src="/feat-img.svg"
                   width={2432}
                   height={1442}
                   className="-mb-12 w-[57rem] max-w-none rounded-tl-xl ring-1 ring-white/10"
