@@ -10,7 +10,7 @@ export default function Tabs({
   setActiveTab: (key: string) => void;
 }) {
   return (
-    <nav className="flex justify-between items-center pb-4">
+    <nav className="flex justify-between items-center pb-2">
       <div className="flex space-x-4">
         {tabs.map((tab) => (
           <button
