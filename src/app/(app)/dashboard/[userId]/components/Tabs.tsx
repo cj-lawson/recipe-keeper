@@ -1,7 +1,5 @@
 'use client';
 
-import CreateRecipeButton from './CreateRecipeButton';
-
 export default function Tabs({
   tabs,
   activeTab,
@@ -27,10 +25,6 @@ export default function Tabs({
             {tab.name}
           </button>
         ))}
-      </div>
-
-      <div>
-        <CreateRecipeButton />
       </div>
     </nav>
   );
