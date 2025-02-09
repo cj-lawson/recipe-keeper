@@ -5,6 +5,7 @@ import Tabs from './Tabs';
 import RecipeCard from './RecipeCard';
 import type { Recipe } from '../../../../../payload-types';
 import CreateRecipeButton from './CreateRecipeButton';
+import ImportRecipeButton from './ImportRecipeButton';
 
 export default function MyRecipesDashboard({
   createdRecipes,
@@ -63,7 +64,8 @@ export default function MyRecipesDashboard({
       </div>
       <div className="flex w-full h-[80px] bg-gradient-to-t from-white to-transparent fixed bottom-0 left-0">
         <div className="ml-auto mr-auto">
-          <CreateRecipeButton />
+          {/* <CreateRecipeButton /> */}
+          <ImportRecipeButton />
         </div>
       </div>
     </div>
