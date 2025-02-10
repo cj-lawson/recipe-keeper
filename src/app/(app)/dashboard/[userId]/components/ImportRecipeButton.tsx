@@ -25,7 +25,7 @@ export default function ImportRecipeButton() {
     setRecipe(null);
 
     try {
-      // Call your API route to parse the recipe
+      // Call API route to parse the recipe
       const res = await fetch('/api/import-recipe', {
         method: 'POST',
         headers: {
@@ -77,7 +77,7 @@ export default function ImportRecipeButton() {
           </TransitionChild>
 
           {/* Sliding Up Modal */}
-          <div className="fixed inset-0 flex items-end justify-center p-4">
+          <div className="fixed inset-0 flex items-end justify-center">
             <TransitionChild
               as={Fragment}
               enter="transform transition ease-out duration-300"
@@ -87,12 +87,12 @@ export default function ImportRecipeButton() {
               leaveFrom="translate-y-0 opacity-100"
               leaveTo="translate-y-full opacity-0"
             >
-              <DialogPanel className="w-full max-w-lg bg-white rounded-t-2xl p-6 shadow-lg">
-                <DialogTitle className="font-bold text-center text-lg">
+              <DialogPanel className="w-full max-w-lg bg-white rounded-t-2xl p-10 shadow-lg">
+                <DialogTitle className="font-bold text-center text-lg mb-12">
                   Add New Recipe
                 </DialogTitle>
 
-                <div className="flex gap-4 mt-6">
+                <div className="flex gap-4 mt-6 mb-4">
                   <button
                     onClick={handleImportClick}
                     disabled={loading}

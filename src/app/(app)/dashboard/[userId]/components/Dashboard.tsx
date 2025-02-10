@@ -33,7 +33,7 @@ export default function MyRecipesDashboard({
   const currentTab = tabs.find((tab) => tab.key === activeTab) || tabs[0]; // Default to the first tab
 
   return (
-    <div className="px-3 min-h-screen pb-20 pt-10 max-w-screen-lg mx-auto font-[family-name:var(--font-geist-sans)]">
+    <div className="px-3 min-h-screen pb-20 pt-10 max-w-screen-lg mx-auto font-[family-name:var(--font-geist-sans)] overflow-hidden">
       <h1 className="font-semibold text-3xl mb-8">My Recipes</h1>
       {/* Tabs Navigation */}
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />

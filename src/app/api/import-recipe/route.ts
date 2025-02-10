@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
     try {
         const { url } = await request.json();
 
+        console.log("from route.ts");
         console.log(url);
 
         if (!url) {
