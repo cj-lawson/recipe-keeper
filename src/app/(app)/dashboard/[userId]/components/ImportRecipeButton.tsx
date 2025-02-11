@@ -93,23 +93,28 @@ export default function ImportRecipeButton() {
                   Add New Recipe
                 </DialogTitle>
 
-                <div className="flex gap-4 mt-6 mb-4">
-                  <button
-                    onClick={handleImportClick}
-                    disabled={loading}
-                    className="w-full bg-green-100 text-green-700 px-5 py-3 rounded-md flex flex-col items-center"
-                  >
-                    <PencilSquareIcon className="w-8" />
-                    {loading ? 'Importing...' : 'Create Recipe'}
-                  </button>
-                  <button
-                    onClick={handleImportClick}
-                    disabled={loading}
-                    className="w-full bg-green-100 text-green-700 px-5 py-3 rounded-md flex flex-col items-center"
-                  >
-                    <GlobeAltIcon className="w-8" />
-                    {loading ? 'Importing...' : 'Import from Website'}
-                  </button>
+                <div className="flex flex-col sm:flex-row gap-6 sm:gap-4 mt-6 mb-4">
+                  <div className="sm:basis-1/2">
+                    <button
+                      onClick={handleImportClick}
+                      disabled={loading}
+                      className="w-full bg-green-100 text-green-700 font-semibold px-5 py-3 rounded-md flex flex-col items-center"
+                    >
+                      <PencilSquareIcon className="w-8" />
+                      {loading ? 'Importing...' : 'Create from scratch'}
+                    </button>
+                  </div>
+
+                  <div className="sm:basis-1/2">
+                    <button
+                      onClick={handleImportClick}
+                      disabled={loading}
+                      className="w-full bg-green-100 text-green-700 font-semibold px-5 py-3 rounded-md flex flex-col items-center"
+                    >
+                      <GlobeAltIcon className="w-8" />
+                      {loading ? 'Importing...' : 'Import from Website'}
+                    </button>
+                  </div>
                 </div>
               </DialogPanel>
             </TransitionChild>

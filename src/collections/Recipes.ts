@@ -39,11 +39,7 @@ export const Recipes: CollectionConfig = {
         position: "sidebar",
       },
     },
-    {
-      name: "ogAuthor",
-      type: "text",
-      required: false,
-    },
+
     {
       name: "mainImage",
       type: "upload",
