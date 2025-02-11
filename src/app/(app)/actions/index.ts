@@ -87,10 +87,10 @@ export async function uploadImageToPayload(
 export async function createRecipe(data: {
   title: string;
   description: string;
-  cookTime: number;
-  servings: number;
+  cookTime: number | null;
+  servings: number | null;
   isPublic: boolean;
-  cuisine:
+  cuisine?:
     | "italian"
     | "mexican"
     | "chinese"
@@ -100,8 +100,8 @@ export async function createRecipe(data: {
     | "other";
   customCuisine?: string;
   ingredients: {
-    amount: string;
-    unit:
+    amount?: string | null;
+    unit?:
       | "custom"
       | "cups"
       | "tbsp"
@@ -140,7 +140,11 @@ export async function createRecipe(data: {
 
   try {
     // Upload the image if provided
-    const mainImageId = await uploadImageToPayload(mainImage || null);
+
+    let mainImageId: string | null = null;
+    if (mainImage) {
+      mainImageId = await uploadImageToPayload(mainImage);
+    }
 
     // Convert amount to a number
     const processedIngredients = ingredients.map((ingredient) => ({

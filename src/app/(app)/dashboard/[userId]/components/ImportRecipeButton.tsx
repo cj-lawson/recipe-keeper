@@ -10,6 +10,7 @@ import {
   Transition,
   TransitionChild,
 } from '@headlessui/react';
+import { GlobeAltIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
 export default function ImportRecipeButton() {
   const [loading, setLoading] = useState(false);
@@ -96,15 +97,17 @@ export default function ImportRecipeButton() {
                   <button
                     onClick={handleImportClick}
                     disabled={loading}
-                    className="w-full bg-stone-800 text-white px-5 py-3 rounded-full"
+                    className="w-full bg-green-100 text-green-700 px-5 py-3 rounded-md flex flex-col items-center"
                   >
+                    <PencilSquareIcon className="w-8" />
                     {loading ? 'Importing...' : 'Create Recipe'}
                   </button>
                   <button
                     onClick={handleImportClick}
                     disabled={loading}
-                    className="w-full bg-stone-800 text-white px-5 py-3 rounded-full"
+                    className="w-full bg-green-100 text-green-700 px-5 py-3 rounded-md flex flex-col items-center"
                   >
+                    <GlobeAltIcon className="w-8" />
                     {loading ? 'Importing...' : 'Import from Website'}
                   </button>
                 </div>

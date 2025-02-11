@@ -183,7 +183,7 @@ interface ExtractedRecipeFields {
     recipeYield?: string;
 }
 
-function buildPayloadRecipeData(
+export function buildPayloadRecipeData(
     recipe: ExtractedRecipeFields,
     userId: string,
 ) {
@@ -192,8 +192,8 @@ function buildPayloadRecipeData(
 
     const ingredients = recipe.ingredients.map((ing) => ({
         amount: null,
-        unit: "custom",
-        customUnit: "",
+        // unit: "custom",
+        customUnit: "test",
         ingredient: ing,
     }));
 
@@ -218,7 +218,7 @@ function buildPayloadRecipeData(
         tags: [],
         ingredients,
         directions,
-        mainImage: undefined,
+        mainImage: null,
     };
 }
 

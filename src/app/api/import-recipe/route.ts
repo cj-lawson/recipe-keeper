@@ -1,13 +1,12 @@
 // app/api/recipes/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { extractRecipeFromURL } from "../../../../utils/recipeParser";
+import { scrapeAndCreateRecipe } from "@utils/scrapeAndCreateRecipe";
+import { createClient } from "../../../../utils/supabase/server";
 
 export async function POST(request: NextRequest) {
     try {
         const { url } = await request.json();
-
-        console.log("from route.ts");
-        console.log(url);
 
         if (!url) {
             return NextResponse.json({ error: "No URL provided" }, {
@@ -15,15 +14,24 @@ export async function POST(request: NextRequest) {
             });
         }
 
-        const recipeData = await extractRecipeFromURL(url);
+        // Get userId
+        const supabase = createClient();
 
-        if (!recipeData) {
-            return NextResponse.json({ error: "Could not parse recipe data" }, {
-                status: 404,
+        const {
+            data: { user },
+        } = await (await supabase).auth.getUser();
+
+        if (!user) {
+            // Return an error (or redirect) if the user is not logged in
+            return NextResponse.json({ error: "User not logged in" }, {
+                status: 401,
             });
         }
 
-        return NextResponse.json({ recipe: recipeData });
+        // const recipeData = await extractRecipeFromURL(url);
+        const createdRecipe = await scrapeAndCreateRecipe(url, user.id);
+
+        return NextResponse.json({ recipe: createdRecipe });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
