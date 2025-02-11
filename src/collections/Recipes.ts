@@ -40,9 +40,15 @@ export const Recipes: CollectionConfig = {
       },
     },
     {
+      name: "ogAuthor",
+      type: "text",
+      required: false,
+    },
+    {
       name: "mainImage",
       type: "upload",
       relationTo: "media",
+      required: false,
     },
     {
       name: "title",
